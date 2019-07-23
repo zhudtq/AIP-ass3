@@ -1,1 +1,2 @@
 hi im nicky
+conflicting line
