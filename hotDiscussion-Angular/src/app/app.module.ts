@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LogInComponent } from './log-in/log-in.component';
+import { LogInComponent } from './pages/loginPage/log-in/log-in.component';
 
 @NgModule({
   declarations: [
