@@ -1,25 +1,56 @@
 <div class="login-container">
+
     <div class="login-outer-wrapper">
-        <div>
-            Welcome
+        <div class="row justify-content-center">
+            <div class="login-header">
+                <h4>
+                    Welcome
+                </h4>
+            </div>
         </div>
         
         <div>
-            <form action="#">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
                 <div>
-                    <input type="text" name="email">
+                    <input type="text" formControlName="email" name="email" required>
                 </div>
 
                 <div>
-                    <input type="text" name="password">
+                    <input type="text" formControlName="password" name="password" required>
                 </div>
 
-                <button class="btn btn-primary">Log In</button>
+                <div class="row justify-content-center">
+                    <div class="login-btn-wrapper">
+                        <div>
+                            <button type="submit" class="btn btn-primary">
+                                Log In
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="login-hangAround-wrapper">
+                        <button type="button" class="btn btn-danger">
+                            Hang Around
+                        </button>
+                    </div>
+                </div>
+
             </form>
         </div>
 
         <div>
-            <h6>Don't have an account</h6>
+            <span>Don't have an account</span>
+            <a href="#"> Sign Up</a>
+        </div>
+
+        <!--            forTest              -->
+        <div>
+            Form Status(Test): {{loginForm.status}}
+        </div>
+        <div>
+            Email validation(Test): {{emailController.valid}}
         </div>
 
     </div>
