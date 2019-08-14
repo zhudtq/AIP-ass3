@@ -3,8 +3,9 @@
     height: 100%;
     width: 100%;
     text-align: center;
+    
     background-image: url("../../../assets/bg1.png");
-    background-size: 100%;
+    background-size: cover;
 
     display: flex;
     align-items: center;
