@@ -3,7 +3,7 @@
     height: 100%;
     width: 100%;
     
-    background-image: url("../../../assets/bg1.png");
+    background-image: url("../../../assets/background/bg1.png");
     background-size: cover;
 
     display: flex;
@@ -26,10 +26,18 @@
 }
 
 .login-btn-wrapper {
-    margin-top: 8%;
-    margin-bottom: 6%;
+    margin-top: 4%;
+    margin-bottom: 4%;
 }
 
 .login-hangAround-wrapper {
     margin-bottom: 5%;
+}
+
+.email-wrapper {
+    margin-bottom: 3%
+}
+
+.password-wrapper {
+    margin-top: 5%
 }

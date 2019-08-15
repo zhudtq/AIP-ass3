@@ -29,11 +29,15 @@ export class LogInComponent implements OnInit {
   onSubmit() {
     console.log(this.loginForm.status);
     console.log(this.loginForm.value);
-    //console.log(this.emailController)
+    console.log(this.emailController)
   }
 
   get emailController() {
     return this.loginForm.get('email');
+  }
+
+  get passwordController() {
+    return this.loginForm.get('password');
   }
 
 }
