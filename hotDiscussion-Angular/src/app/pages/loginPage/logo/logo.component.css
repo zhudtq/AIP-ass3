@@ -1,0 +1,20 @@
+.logo {
+    background: url("../../../assets/logo/metroplis.jpg") 20% 25%;
+    font-size: 300%;
+    text-transform: uppercase;
+    font-weight: 1000;
+    letter-spacing: 5px;
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    margin: 0;
+    background-size: cover;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.outter {
+    height: 40px
+}
