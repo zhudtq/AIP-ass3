@@ -23,6 +23,8 @@
 
 .login-header {
     margin: 5% 2% 5% 2%;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-weight: 1000
 }
 
 .login-btn-wrapper {
