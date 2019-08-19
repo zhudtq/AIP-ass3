@@ -2,9 +2,9 @@
     position: absolute;
     height: 100%;
     width: 100%;
-    text-align: center;
-    background-image: url("../../../assets/bg1.png");
-    background-size: 100%;
+    
+    background-image: url("../../../assets/background/bg1.png");
+    background-size: cover;
 
     display: flex;
     align-items: center;
@@ -12,11 +12,34 @@
 }
 
 .login-outer-wrapper {
-    background: #fff;
+    background: rgba(255, 255, 255, 0.959);
     border-radius: 10px;
     overflow: hidden;
     padding: 30px 50px 30px 50px;
 
     display: inline-block;
-    box-shadow: 0 5px 10px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 500px 500px 0px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+    margin: 5% 2% 5% 2%;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-weight: 1000
+}
+
+.login-btn-wrapper {
+    margin-top: 4%;
+    margin-bottom: 4%;
+}
+
+.login-hangAround-wrapper {
+    margin-bottom: 5%;
+}
+
+.email-wrapper {
+    margin-bottom: 3%
+}
+
+.password-wrapper {
+    margin-top: 5%
 }

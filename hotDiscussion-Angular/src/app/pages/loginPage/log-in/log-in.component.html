@@ -1,26 +1,58 @@
 <div class="login-container">
+    <app-logo></app-logo>
+
     <div class="login-outer-wrapper">
-        <div>
-            Welcome
+        <div class="row justify-content-center">
+            <div class="login-header">
+                <h4>
+                    Welcome
+                </h4>
+            </div>
         </div>
         
         <div>
-            <form action="#">
-                <div>
-                    <input type="text" name="email">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                <div class="email-wrapper">
+                    <input type="text" formControlName="email" name="email" required placeholder="Email" class="form-control">
                 </div>
 
-                <div>
-                    <input type="text" name="password">
+                <div class="password-wrapper">
+                    <input type="password" formControlName="password" name="password" required placeholder="Password" class="form-control">
                 </div>
 
-                <button class="btn btn-primary">Log In</button>
+                <div class="row justify-content-center">
+                    <button type="submit" class="btn btn-primary col-11 login-btn-wrapper">
+                        Log In
+                    </button>
+                </div>
+
+                <div class="row justify-content-center">
+                    <button routerLink="/mainChatting" type="button" class="btn btn-danger col-11 login-hangAround-wrapper">
+                        Hang Around
+                    </button>
+                </div>
+
             </form>
         </div>
 
         <div>
-            <h6>Don't have an account</h6>
+            <span>Don't have an account</span>
+            <a href="#"> Sign Up</a>
         </div>
+
+        <!--            forTest              -->
+        <div style="color: red">
+            <div>
+                测试用
+            </div>
+            <div>
+                Form Status(Test): {{loginForm.status}}
+            </div>
+            <div>
+                Email validation(Test): {{emailController.valid}}
+            </div>
+        </div>
+        
 
     </div>
 </div>
