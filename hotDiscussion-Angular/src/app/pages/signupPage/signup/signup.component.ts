@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from "../../user.model";
+import { NgForm } from '@angular/forms';
+import { UserService } from '../../user.service';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +9,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  user: User;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
-  ngOnInit() {
+    ngOnInit() {
   }
+
 
 }

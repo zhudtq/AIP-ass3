@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-main-chatting',
   templateUrl: './main-chatting.component.html',
