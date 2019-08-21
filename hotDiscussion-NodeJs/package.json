@@ -1,8 +1,8 @@
 {
-  "name": "hotDiscussion-NodeJs",
+  "name": "hot-discussion-nodejs",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -12,6 +12,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "mongodb": "^3.3.0",
-    "mongoose": "^5.6.10"
+    "mongoose": "^5.6.10",
+    "validator": "^11.1.0"
   }
 }
