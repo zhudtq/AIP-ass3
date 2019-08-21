@@ -1,3 +1,37 @@
-<p>
-  signup works!
-</p>
+<div class="signup-container" style="background-color:#9CBCD9  ">
+  <div class="signup-outer-wrapper">
+      <div>
+        <h1>Sign Up</h1>
+      </div>
+      <div>
+      <form class="col s12 white" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="input-field col s6">
+            <input class="validate" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
+            <label>UserName</label>
+          </div>
+          <div class="input-field col s6">
+            <input type="password" name="Password" #Password="ngModel" [ngModel]="user.Password">
+            <label>Password</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <input type="text" name="Email" #Email="ngModel" [ngModel]="user.Email">
+            <label>Email</label>
+          </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
+              <button  routerLink="/login" class="btn-large btn-submit" type="submit">Submit</button>
+            </div>
+            <div class="input-field col s12">
+                <button routerLink="/login" class="btn-large btn-submit" type="submit">Login</button>
+            </div>
+          </div>
+      </form>
+      </div>
+  </div>
+</div>
+
+
