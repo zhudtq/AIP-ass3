@@ -9,12 +9,19 @@ import { UserService } from '../../user.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  user: User;
+  // user: User;
+  user:User = {
+    UserName: "",
+    Password: "",
+    Email: ""
+  }
 
   constructor(private userService: UserService) { }
 
     ngOnInit() {
   }
+    ngSubmit(){
 
+    }
 
 }
