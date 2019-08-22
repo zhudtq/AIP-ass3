@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 
 import { AppComponent } from './app.component';
@@ -13,6 +13,8 @@ import { SignupComponent } from './pages/signupPage/signup/signup.component';
 import { NavigationComponent } from './pages/chattingPage/navigation/navigation.component';
 import { UserService } from './pages/user.service';
 import { HttpClientModule } from '@angular/common/http';
+import { UserRankingComponent } from './pages/chattingPage/main-chatting/user-ranking/user-ranking.component';
+import { PicRankingComponent } from './pages/chattingPage/main-chatting/pic-ranking/pic-ranking.component';
 
 
 @NgModule({
@@ -22,7 +24,9 @@ import { HttpClientModule } from '@angular/common/http';
     LogoComponent,
     MainChattingComponent,
     SignupComponent,
-    NavigationComponent 
+    NavigationComponent,
+    UserRankingComponent,
+    PicRankingComponent
   ],
   imports: [
     BrowserModule,
