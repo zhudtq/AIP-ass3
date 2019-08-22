@@ -8,8 +8,11 @@ router.post('/users', async(req, res) => {
 
     try {
         await user.save()
-        res.send({user})
-    } catch (e) {
+        const token = await user.createToken()
+        console.log('token: ' + token)
+        res.status(201).send({user, token})
+    } 
+    catch (e) {
         res.status(400).send(e)
     }
 })
