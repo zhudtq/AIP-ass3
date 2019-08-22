@@ -8,6 +8,7 @@ const port = 3000
 app.use(express.json())
 app.use(loginRouter)
 
+// Test
 app.post('/user', (req,res) => {
     res.send({"name": "nicky"})
     console.log(req.body.age)
