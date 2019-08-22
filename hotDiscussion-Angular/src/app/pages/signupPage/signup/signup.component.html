@@ -1,36 +1,45 @@
 <div class="signup-container" style="background-color:#9CBCD9  ">
   <div class="signup-outer-wrapper">
+    <div class="row justify-content-center"> 
+      <div class="signup-header">
+            <h1>Sign Up</h1>
+          </div>
       <div>
-        <h1>Sign Up</h1>
-      </div>
-      <div>
-      <form class="col s12 white" #userRegistrationForm="ngForm" (ngSubmit)="onSubmit()">
+    </div>
+
+      <form  #userRegistrationForm="ngForm" (ngSubmit)="onSubmit()">
+       
         <div class="row">
-          <div class="input-field col s6">
-            <input class="validate" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
+          <div class="name-wrapper">
+            <input class="form-control" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
             <label>UserName</label>
           </div>
-          <div class="input-field col s6">
-            <input type="password" name="Password" #Password="ngModel" [ngModel]="user.Password">
+        </div>
+        
+        <div class="row">
+          <div class="password-wrapper">
+            <input class="form-control" type="password" name="Password" #Password="ngModel" [ngModel]="user.Password">
             <label>Password</label>
           </div>
         </div>
+        
         <div class="row">
-          <div class="input-field col s12">
-            <input type="text" name="Email" #Email="ngModel" [ngModel]="user.Email">
+          <div class="email-wrapper">
+            <input type="text" name="Email" #Email="ngModel" [ngModel]="user.Email" class="form-control">
             <label>Email</label>
           </div>
         </div>
-        <div class="row">
-            <div class="input-field col s12">
-              <button  routerLink="/login" class="btn-large btn-submit" type="submit">Submit</button>
-            </div>
-            <div class="input-field col s12">
-                <button routerLink="/login" class="btn-large btn-submit" type="submit">Login</button>
-            </div>
-          </div>
+        
+        <div class="row justify-content-center">
+          <button routerLink="/login" class="btn btn-primary col-11 signup-btn-wrapper" type="submit">Submit</button>
+        </div>
+    
+        <div class="row justify-content-center">
+            <button routerLink="/login" class="btn btn-danger col-11 signup-btn-wrapper" type="submit">Login</button>
+        </div>
+        
       </form>
-      </div>
+    </div>
   </div>
 </div>
 
