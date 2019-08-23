@@ -21,7 +21,7 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <button type="submit" class="btn btn-primary col-11 login-btn-wrapper">
+                    <button [disabled]="loginForm.status=='INVALID'" type="submit" class="btn btn-primary col-11 login-btn-wrapper">
                         Log In
                     </button>
                 </div>
@@ -41,7 +41,7 @@
         </div>
 
         <!--            forTest              -->
-        <div style="color: red">
+        <!-- <div style="color: red">
             <div>
                 测试用
             </div>
@@ -51,7 +51,7 @@
             <div>
                 Email validation(Test): {{emailController.valid}}
             </div>
-        </div>
+        </div> -->
         
 
     </div>

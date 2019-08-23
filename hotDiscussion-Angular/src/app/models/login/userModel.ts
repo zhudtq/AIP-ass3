@@ -1,5 +1,7 @@
 export class UserModel {
-    name?: String;
     email: String;
     password: String;
+    name?: String;
+    token?: String;
+    profile?: any;
 }

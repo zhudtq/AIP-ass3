@@ -18,21 +18,16 @@ router.post('/users', async(req, res) => {
 })
 
 router.post('/users/login', async (req, res) => {
+    console.log('laile laile')
     try {
         const user = await User.findUserByVerification(req.body.email, req.body.password)
         const token = await user.createToken()
 
-        res.send({user})
+        res.send({user, token})
     }
     catch (e) {
         res.status(400).send()
     }
-
-    // const mima = await bcrypt.hash('password', 8)
-    // console.log(mima)
-    // const isMatch = await bcrypt.compare('password', mima)
-    // console.log(isMatch)
-
 
 })
 

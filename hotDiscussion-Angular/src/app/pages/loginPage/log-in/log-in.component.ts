@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { UserModel } from '../../../models/login/userModel';
+import { Router } from '@angular/router';
 import { LoginService } from '../../../http/login/login.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LogInComponent implements OnInit {
       password: new FormControl('')
     }
   );*/
-  userModel: UserModel = {email: '', password: ''};
+  userModel: UserModel;
   token: String = '';
   userResponse: UserModel;
 
@@ -26,7 +27,8 @@ export class LogInComponent implements OnInit {
     password: ['', [Validators.required]]
   })
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) {}
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService,
+    private router: Router) {}
 
   ngOnInit() {
   }
@@ -48,18 +50,17 @@ export class LogInComponent implements OnInit {
   buildUserModel() {
     if(this.loginForm.status == 'VALID'){
       this.userModel = {email: this.loginForm.value.email, password: this.loginForm.value.password}
-      console.log(this.userModel)
 
+      this.loginService.logIn(this.userModel).subscribe(
+        (data) => {
+          this.router.navigate(['/mainChatting'])
+        },
+        (error) => {
+          alert('Email or password does not match, please check your account')
+          this.loginForm.reset()
+        }
+      )
     }
-    let model = {email: 'nicky@gmail.com', password:'password'}
-    this.loginService.logIn(model).subscribe(
-      () => {
-        console.log('chnegong')
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
 
   }
 
