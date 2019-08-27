@@ -7,35 +7,32 @@
       <div>
     </div>
 
-      <form  #userRegistrationForm="ngForm" (ngSubmit)="onSubmit()">
+      <form  [formGroup]="signupForm" (ngSubmit)="onSubmit()">
        
         <div class="row">
           <div class="name-wrapper">
-            <input class="form-control" type="text" name="UserName" #UserName="ngModel" [(ngModel)]="user.UserName" required>
-            <label>UserName</label>
+            <input class="form-control" type="text" formControlName="name" name="name" required placeholder="Username">
           </div>
         </div>
         
         <div class="row">
           <div class="password-wrapper">
-            <input class="form-control" type="password" name="Password" #Password="ngModel" [ngModel]="user.Password">
-            <label>Password</label>
+            <input class="form-control" type="password" formControlName="password" name="password" required placeholder="Password">
           </div>
         </div>
         
         <div class="row">
           <div class="email-wrapper">
-            <input type="text" name="Email" #Email="ngModel" [ngModel]="user.Email" class="form-control">
-            <label>Email</label>
+            <input class="form-control" type="text" formControlName="email" name="email" required placeholder="Email">
           </div>
         </div>
         
         <div class="row justify-content-center">
-          <button routerLink="/login" class="btn btn-primary col-11 signup-btn-wrapper" type="submit">Submit</button>
+          <button [disabled]="signupForm.status=='INVALID'" class="btn btn-primary col-11 signup-btn-wrapper" type="submit">Submit</button>
         </div>
     
         <div class="row justify-content-center">
-            <button routerLink="/login" class="btn btn-danger col-11 signup-btn-wrapper" type="submit">Login</button>
+            <button routerLink="/login" class="btn btn-danger col-11 signup-btn-wrapper" type="button">Login</button>
         </div>
         
       </form>

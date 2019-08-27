@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {  Response } from "@angular/http";
 import {Observable} from 'rxjs';
-import { User } from '../models/signup/user.model';
+import { User } from '../../models/signup/user.model';
+
 
 
 @Injectable({
