@@ -5,8 +5,9 @@ const bcrypt = require('bcryptjs')
 const router = new express.Router()
 
 router.post('/users', async(req, res) => {
+    console.log('sign up!')
     const user = new User(req.body)
-
+    console.log(req.body)
     try {
         await user.save()
         const token = await user.createToken()
