@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { UserModel } from '../../../models/login/userModel';
 import { Router } from '@angular/router';
 import { LoginService } from '../../../http/login/login.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-log-in',
@@ -28,7 +29,7 @@ export class LogInComponent implements OnInit {
   })
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService,
-    private router: Router) {}
+    private router: Router, private toastrService: ToastrService) {}
 
   ngOnInit() {
   }
@@ -36,6 +37,10 @@ export class LogInComponent implements OnInit {
   // Reactive form submission function
   onSubmit() {
     this.buildUserModel()
+  }
+
+  onToastr(){
+    this.toastrService.success('1','2')
   }
 
   get emailController() {
@@ -53,9 +58,11 @@ export class LogInComponent implements OnInit {
 
       this.loginService.logIn(this.userModel).subscribe(
         (data) => {
+          this.toastrService.success('Log in successfully', 'Success')
           this.router.navigate(['/mainChatting'])
         },
         (error) => {
+          this.toastrService.error('Wrong email or password, please check your account', 'Error')
           alert('Email or password does not match, please check your account')
           this.loginForm.reset()
         }
