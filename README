@@ -1,3 +1,17 @@
+
 This is Advanced Internet programming assignment3.
 
 It is a website which only can post and disscused by pictures.
+
+Key principles of code style and design:
+
+1.We implement layered structure to the application with good documentation. Files are nested in proper folders to make it easier to manage and maintain as the project grows.
+
+2.We add sufficient but not tedious comments to the code which gives a clue to developers and others who read the code. The comments should not be overwhelming or impede reading the code.
+
+3.We use component and module of Angular to organize difference components or features in the app. The process is to structure the skeleton of the app and then add on detailed components. This makes components reusable and the app scalable during the evolution of system.
+
+4.We import libraries only where appropriate and necessary, and avoid leaving unused libraries which makes the document redundant.
+
+5.We use CSS styling elegantly with a defined design standard, and the style is uniform and consistent across the application. 
+
