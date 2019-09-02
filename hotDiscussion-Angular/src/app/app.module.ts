@@ -5,6 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { LogInComponent } from './pages/loginPage/log-in/log-in.component';
@@ -16,6 +17,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { UserRankingComponent } from './pages/chattingPage/main-chatting/user-ranking/user-ranking.component';
 import { PicRankingComponent } from './pages/chattingPage/main-chatting/pic-ranking/pic-ranking.component';
 
+export function tokenGetter() {
+  return sessionStorage.getItem('StrawberryToken')
+}
 
 @NgModule({
   declarations: [
@@ -35,7 +39,13 @@ import { PicRankingComponent } from './pages/chattingPage/main-chatting/pic-rank
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ["localhost:3000"]
+      }
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

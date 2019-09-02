@@ -27,7 +27,11 @@
                 </div>
 
                 <div class="row justify-content-center">
-                    <button routerLink="/mainChatting" type="button" class="btn btn-danger col-11 login-hangAround-wrapper">
+                    <!-- <button routerLink="/mainChatting" type="button" class="btn btn-danger col-11 login-hangAround-wrapper">
+                        Hang Around
+                    </button> -->
+
+                    <button (click)="hangAround()" type="button" class="btn btn-danger col-11 login-hangAround-wrapper">
                         Hang Around
                     </button>
                 </div>
@@ -43,7 +47,7 @@
         <!--            forTest              -->
         <!-- <div style="color: red">
             <div>
-                测试用
+                for test
             </div>
             <div>
                 Form Status(Test): {{loginForm.status}}

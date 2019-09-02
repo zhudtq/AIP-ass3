@@ -39,6 +39,12 @@ export class LogInComponent implements OnInit {
     this.buildUserModel()
   }
 
+  // anonymous log in
+  hangAround() {
+    sessionStorage.clear()
+    this.router.navigate(['/mainChatting'])
+  }
+
   onToastr(){
     this.toastrService.success('1','2')
   }
