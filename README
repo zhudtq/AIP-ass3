@@ -15,3 +15,20 @@ Key principles of code style and design:
 
 5.We use CSS styling elegantly with a defined design standard, and the style is uniform and consistent across the application. 
 
+API and database design principle:
+
+6. API single responsibility principle. Every function and model should be responsible for a single part of the
+functionality that to be completed.
+
+7. API file high scalability principle. New API would be easy to added to exsiting files without any change. The whole
+API would be easy to extend.
+
+8. API high readability principle. Add comment to necessary functions and statement that maintainer could easily understand 
+what thoses function means.
+
+9. Backend file separation principle. Split files into different directory according to its functinality and feature, such as 
+middle, router and model directory. 
+
+10. Database ODM one to one principle. Every of mongodb collections should be ressponding to a single mongoose model. Inside that model,
+limitation, validation and basic configuration should be required.
+
