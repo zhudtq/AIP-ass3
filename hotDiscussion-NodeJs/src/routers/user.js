@@ -1,14 +1,14 @@
 const express = require('express')
 const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
+const auth = require('../middleware/authentication')
 
 const router = new express.Router()
 
 router.post('/users', async(req, res) => {
-    console.log('sign up!')
     const user = new User(req.body)
-    console.log(req.body)
     try {
+        console.log(req.body)
         await user.save()
         const token = await user.createToken()
         res.status(201).send({user, token})
@@ -19,7 +19,6 @@ router.post('/users', async(req, res) => {
 })
 
 router.post('/users/login', async (req, res) => {
-    console.log('laile laile')
     try {
         const user = await User.findUserByVerification(req.body.email, req.body.password)
         const token = await user.createToken()
@@ -30,6 +29,17 @@ router.post('/users/login', async (req, res) => {
         res.status(400).send()
     }
 
+})
+
+router.delete('/users/logoutAll', auth, async(req, res) => {
+    try {
+        req.user.tokens = []
+        await req.user.save()
+        res.status(200).send(req.user)
+    }
+    catch (e) {
+        res.status(500).send()
+    }
 })
 
 module.exports = router

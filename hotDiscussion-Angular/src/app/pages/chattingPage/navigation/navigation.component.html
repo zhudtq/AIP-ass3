@@ -31,6 +31,11 @@
     <button routerLink="/login" class="btn btn-outline-info ml-2" type="button">Login</button> -->
     <ul class="navbar-nav">
       <li *ngIf="userIsAuthenticated" class="nav-item">
+        <div mat-button class="welcomeMsg">
+          <button class="btn btn-dark welcomeBtn" disabled="true">Welcome, {{userName}}</button>
+        </div>
+      </li>
+      <li *ngIf="userIsAuthenticated" class="nav-item">
         <a mat-button class="btn btn-outline-warning" >My Profile</a>
       </li>
       <li *ngIf="!userIsAuthenticated" class="nav-item">

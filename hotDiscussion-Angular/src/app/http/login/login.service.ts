@@ -18,10 +18,6 @@ export class LoginService {
         map((response: UserModel) => {
           const userResponse: UserModel = response
           const token: String = userResponse.token
-          if (token){
-            this.UserService.login();
-            console.log(token);
-          }
           sessionStorage.setItem('StrawberryToken', token.toString())
         })
       )
