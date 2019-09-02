@@ -27,6 +27,8 @@ const userSchema = new mongoose.Schema({
         }
     }]
 
+},{
+    timestamps: true
 })
 
 // User methods that generate a unique JWT token

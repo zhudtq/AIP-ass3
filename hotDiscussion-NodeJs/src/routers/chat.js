@@ -1,11 +1,11 @@
 const express = require('express')
 const Chat = require('../models/chatModel')
 const auth = require('../middleware/authentication')
-const multer = require('multer')
-
+//const multer = require('multer')
+const storage = require('../middleware/chattingImage')
 const router = new express.Router()
 
-const storage = multer({dest: 'me/'})
+//const storage = multer({dest: 'me/'})
 
 router.post('/chats', async (req, res) => {
     try {
@@ -22,26 +22,24 @@ router.post('/chats', async (req, res) => {
 })
 
 router.post('/images', storage.single('image'), async (req, res) => {
-    console.log('image coming')
-    // try {
-    //     if (!req.file){
-    //         console.log('no file received...')
-    //         return res.send({
-    //         message: false
-    //     })
-    //     }
-    //     else {
-    //         console.log('file received')
-    //         return res.send({
-    //             message: true
-    //         })
-    //     }
-    // }
-    // catch (e) {
+    try {
+        if (!req.file){
+            console.log('no file received...')
+            return res.status(401).send({
+            message: false
+        })
+        }
+        else {
+            console.log('file received')
+            console.log(req.file)
+            return res.send({
+                ...req.file
+            })
+        }
+    }  
+    catch (e) {
 
-    // }
-    console.log(req.file)
-    res.send({mes: true})
+    }
 })
 
 module.exports = router

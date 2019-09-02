@@ -13,3 +13,5 @@ const auth = async (req, res, next) => {
         res.status(401).send({error: 'A uthentication failed, please log in again'})
     }
 }
+
+module.exports = auth
