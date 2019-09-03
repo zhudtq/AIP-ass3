@@ -1,19 +1,19 @@
 const express = require('express')
 const Chat = require('../models/chatModel')
 const auth = require('../middleware/authentication')
-//const multer = require('multer')
-const storage = require('../middleware/chattingImage')
+const upload = require('../middleware/chattingImage')
 const router = new express.Router()
 
-//const storage = multer({dest: 'me/'})
-
-router.post('/chats', async (req, res) => {
+router.post('/chats', auth, upload.single('image'), async (req, res) => {
+    const chat = new Chat({
+        mainImage: req.myFileUrl,
+        ownerName: req.user.name,
+        ownerId: req.user._id
+    })
+    
     try {
-        const chat = new Chat({
-            ...req.body
-        })
-        console.log(chat)
         await chat.save()
+        console.log(req.myFileUrl)
         res.status(201).send(chat)
     }
     catch (e) {
@@ -21,25 +21,35 @@ router.post('/chats', async (req, res) => {
     }
 })
 
-router.post('/images', storage.single('image'), async (req, res) => {
+router.get('/chats', async (req, res) => {
     try {
-        if (!req.file){
-            console.log('no file received...')
-            return res.status(401).send({
-            message: false
-        })
-        }
-        else {
-            console.log('file received')
-            console.log(req.file)
-            return res.send({
-                ...req.file
-            })
-        }
-    }  
+        const chatList = await Chat.find({})
+        res.status(200).send(chatList)
+    }
     catch (e) {
-
+        res.status(404).send()
     }
 })
+
+// router.post('/images', storage.single('image'), async (req, res) => {
+//     try {
+//         if (!req.file){
+//             console.log('no file received...')
+//             return res.status(401).send({
+//             message: false
+//         })
+//         }
+//         else {
+//             console.log('file received')
+//             console.log(req.file)
+//             return res.send({
+//                 ...req.file
+//             })
+//         }
+//     }  
+//     catch (e) {
+
+//     }
+// })
 
 module.exports = router

@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
+const Chat = require('./chatModel')
 
 // User model configurations
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -25,7 +27,10 @@ const userSchema = new mongoose.Schema({
             type: String,
             required: true
         }
-    }]
+    }],
+    avatar: {
+        type: Buffer
+    }
 
 },{
     timestamps: true
@@ -57,6 +62,12 @@ userSchema.statics.findUserByVerification = async (email, password) => {
 
     return user
 }
+
+userSchema.virtual('chats', {
+    ref: 'Chat',
+    localField: '_id',
+    foreignField: 'ownerId'
+})
 
 // Hashing password before storing into database
 userSchema.pre('save', async function (next) {

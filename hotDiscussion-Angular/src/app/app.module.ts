@@ -16,6 +16,8 @@ import { NavigationComponent } from './pages/chattingPage/navigation/navigation.
 import { HttpClientModule } from '@angular/common/http';
 import { UserRankingComponent } from './pages/chattingPage/main-chatting/user-ranking/user-ranking.component';
 import { PicRankingComponent } from './pages/chattingPage/main-chatting/pic-ranking/pic-ranking.component';
+import { ChattingCardComponent } from './pages/chattingPage/chatting-card/chatting-card.component';
+import { ImageUploadComponent } from './pages/chattingPage/image-upload/image-upload.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('StrawberryToken')
@@ -30,7 +32,9 @@ export function tokenGetter() {
     SignupComponent,
     NavigationComponent,
     UserRankingComponent,
-    PicRankingComponent
+    PicRankingComponent,
+    ChattingCardComponent,
+    ImageUploadComponent
   ],
   imports: [
     BrowserModule,
