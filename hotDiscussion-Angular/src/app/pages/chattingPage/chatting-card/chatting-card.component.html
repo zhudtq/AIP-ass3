@@ -1,0 +1,17 @@
+<div class="blog-post" *ngFor="let chat of mainChattingList">
+  <div class="card">
+  <div class="view overlay zoom">
+    <img [src]="chat?.mainImage" class="img-fluid " alt="zoom">
+  </div>
+    <div class="card-body">
+      <span class="col-4">{{chat?.ownerName}}</span>
+      <span class="col-3">{{chat?.createdAt}}</span>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-secondary">View comments</button>
+        <button type="button" class="btn btn-secondary">Reply</button>
+        <button type="button" class="btn btn-secondary">Like</button>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>
