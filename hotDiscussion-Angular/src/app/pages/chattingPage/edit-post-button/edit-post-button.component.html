@@ -1,0 +1,27 @@
+<h1 class="page-header">Editing</h1>
+<!--<div class="blog-post" *ngFor="let post of findSinglePost">-->
+  <!-- Edit Blog Form -->
+  <form (submit)="updateBlogSubmit()" >
+    <div class="card-body bg-secondary">
+      <div class="view overlay zoom">
+        <img src="#" class="img-fluid " alt="zoom">
+      </div>
+      <strong>Posted by:</strong><span class="col-4">{{post?.ownerName}}</span>
+      <strong>Date:</strong> <span class="col-3">{{post?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
+    </div>
+    <!-- Body Field -->
+    <div class="form-group">
+      <!--    <input [disabled]="processing" [(ngModel)]="blog.body" #body="ngModel" class="form-control" type="file" class="form-control-file border">-->
+      <input  type="file" class="form-control-file border">
+    </div>
+
+    <!-- Go Back Button -->
+    <button type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+    <!-- Save Changes Button -->
+    <button type="submit" name="save" class="btn btn-info">Save Changes</button>
+
+  </form>
+
+<!--</div>-->
+
+
