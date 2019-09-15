@@ -65,7 +65,7 @@ export class LogInComponent implements OnInit {
       this.loginService.logIn(this.userModel).subscribe(
         (data) => {
           this.toastrService.success('Log in successfully', 'Success')
-          this.router.navigate(['/mainChatting'])
+          this.router.navigate(['/mainChatting/chattingCard'])
         },
         (error) => {
           this.toastrService.error('Wrong email or password, please check your account', 'Error')

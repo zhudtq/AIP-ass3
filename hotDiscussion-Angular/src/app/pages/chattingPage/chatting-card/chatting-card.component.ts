@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { GetAllChattingsService } from '../../../http/get-all-chattings.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
+import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
+
 @Component({
   selector: 'app-chatting-card',
   templateUrl: './chatting-card.component.html',
@@ -11,11 +13,12 @@ export class ChattingCardComponent implements OnInit {
   // userIsAuthenticated = false;
   currentName = '';
   selectedId = ''
-  //
+  // TransferSingleCardService
   mainChattingList: any = []
   imagePath: String = "file:/balloon.jpg"
 
-  constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService) {}
+  constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService,
+              private transferService: TransferSingleCardService) {}
 
   isAuthOwner(){
       if(this.authService.verifyToken()){
@@ -27,6 +30,10 @@ export class ChattingCardComponent implements OnInit {
         }
       }
     }
+
+  transferValue(myIndex: any){
+    this.transferService.singleCard = this.mainChattingList[myIndex]
+  }
 
     showId(myIndex){
       console.log(this.mainChattingList[myIndex]._id)

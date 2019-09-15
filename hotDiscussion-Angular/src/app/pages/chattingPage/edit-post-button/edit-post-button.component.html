@@ -4,10 +4,10 @@
   <form (submit)="updateBlogSubmit()" >
     <div class="card-body bg-secondary">
       <div class="view overlay zoom">
-        <img src="#" class="img-fluid " alt="zoom">
+        <img [src]="singleCardList?.mainImage" class="img-fluid " alt="zoom">
       </div>
-      <strong>Posted by:</strong><span class="col-4">{{post?.ownerName}}</span>
-      <strong>Date:</strong> <span class="col-3">{{post?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
+      <strong>Posted by:</strong><span class="col-4">{{singleCardList?.ownerName}}</span>
+      <strong>Date:</strong> <span class="col-3">{{singleCardList?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
     </div>
     <!-- Body Field -->
     <div class="form-group">

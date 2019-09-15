@@ -7,7 +7,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthenticationService {
   helper = new JwtHelperService()
   constructor() { }
-
+  tokenGot;
   verifyToken() {
     let token = sessionStorage.getItem('StrawberryToken')
     if (token) {
