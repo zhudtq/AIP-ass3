@@ -1,16 +1,36 @@
-<div class="blog-post" *ngFor="let chat of mainChattingList">
+<div class="blog-post" *ngFor="let chat of mainChattingList; let i = index">
   <div class="card">
-  <div class="view overlay zoom">
-    <img [src]="chat?.mainImage" class="img-fluid " alt="zoom">
-  </div>
-    <div class="card-body">
-      <span class="col-4">{{chat?.ownerName}}</span>
-      <span class="col-3">{{chat?.createdAt}}</span>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-secondary">View comments</button>
-        <button type="button" class="btn btn-secondary">Reply</button>
-        <button type="button" class="btn btn-secondary">Like</button>
+    <div class="card-header bg-dark text-white">
+      <h5>Post</h5>
+    </div>
+    <button (click)="showId(i)">sdfsdf</button>
+
+    <div class="card-body bg-secondary">
+      <div class="view overlay zoom">
+        <img [src]="chat?.mainImage" class="img-fluid " alt="zoom">
       </div>
+      <strong>Posted by:</strong><span class="col-4">{{chat?.ownerName}}</span>
+      <strong>Date:</strong> <span class="col-3">{{chat?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
+    </div>
+    <div class="card-footer bg-dark text-white">
+
+      <!-- Edit Button -->
+          <button [routerLink]="['/mainChatting/edit']"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn-sm btn-info">Edit</button>
+          <!-- Delete Button -->
+          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+          <!-- Likes Dropdown  -->
+          <div class="dropdown">
+            <!-- Like Button -->
+            <button type="button" name="button" class="btn btn-outline-danger">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">&nbsp;</span>Likes: 21</button>
+            <!-- Dropdown Menu Items -->
+            <div class="dropdown-content">
+              <a href="#">gugui3z24</a>
+              <a href="#">jinder</a>
+              <a href="#">patel</a>
+            </div>
+      </div>
+      <a href="#"><button type="button" name="button" class="btn btn-outline-secondary" style="float: right">Comment</button></a>
     </div>
   </div>
   <br>
