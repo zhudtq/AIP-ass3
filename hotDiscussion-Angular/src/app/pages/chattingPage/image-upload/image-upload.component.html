@@ -1,7 +1,16 @@
-    <div class="custom-file">
-      <input type="file" class="custom-file-input" id="inputGroupFile01"
-             aria-describedby="inputGroupFileAddon01">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+<div class="card">
+  
+    <div class="card-header">
+      <div class="row justify-content-center">
+          Share your image here
+      </div>
     </div>
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
-    <button class="btn btn-primary">Post Now</button>
+  
+    <div class="card-body">
+      <!-- <h4 class="card-title"></h4> -->
+      <input type="file" (change)="onFilePicked($event)" id="fileUpload">
+      <button (click)="onUpload()" [disabled]="btnToggle" class="btn btn-primary myBtn">Submit</button>
+    </div>
+  
+</div>
+<br>
