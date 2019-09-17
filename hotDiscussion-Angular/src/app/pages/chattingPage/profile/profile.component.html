@@ -1,0 +1,24 @@
+
+<!-- <form>
+  <div class="form-group">
+    <label for="exampleFormControlFile1">Select Image</label>
+    <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)" class="form-control-file" id="exampleFormControlFile1">
+  </div>
+</form> -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Choose File</h3>
+            <form (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                    <input type="file" name="image" #fileInput accept="image/*" (change)="onFilePicked($event)" onclick="this.value=''">
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
