@@ -1,6 +1,6 @@
 #navbarButton{
     position: absolute;
-    right: 20px;
+    margin-left: 60%;  
 }
 
 .welcomeMsg {
