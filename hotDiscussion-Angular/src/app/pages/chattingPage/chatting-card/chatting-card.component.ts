@@ -45,20 +45,26 @@ export class ChattingCardComponent implements OnInit {
       }
     }
 
+    getAllChats() {
+      this.getAllChatting.getAllChattings().subscribe(
+        (data) => {
+          this.mainChattingList = data
+          this.addAuth()
+          console.log(this.mainChattingList)
+          this.isAuthOwner()
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+    }
+
   ngOnInit() {
-    this.getAllChatting.getAllChattings().subscribe(
-      (data) => {
-        this.mainChattingList = data
-        this.addAuth()
-        console.log(this.mainChattingList)
-        this.isAuthOwner()
-      },
-      (error) => {
-        console.log(error)
-      }
-    )
-
-
+    this.getAllChats()
   }
+
+  // test(msg) {
+  //   alert('from chatting card component' + msg)
+  // }
 
 }

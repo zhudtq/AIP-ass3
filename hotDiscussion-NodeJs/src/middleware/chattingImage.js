@@ -32,6 +32,7 @@ const up = multer.diskStorage({
     },
     fileFilter(req, file, cb) {
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
+            console.log(111)
             return cb(new Error('Only jpg jpeg png image formate accepted.'))
         }
         cb(undefined, true)

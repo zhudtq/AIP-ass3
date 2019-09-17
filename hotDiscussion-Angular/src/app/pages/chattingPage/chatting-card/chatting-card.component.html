@@ -1,9 +1,10 @@
+<app-image-upload (childEvent)="getAllChats()"></app-image-upload>
+
 <div class="blog-post" *ngFor="let chat of mainChattingList; let i = index">
   <div class="card">
     <div class="card-header bg-dark text-white">
       <h5>Post</h5>
     </div>
-    <button (click)="showId(i)">sdfsdf</button>
 
     <div class="card-body bg-secondary">
       <div class="view overlay zoom">
