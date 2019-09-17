@@ -2,7 +2,6 @@ const express = require('express')
 const User = require('../models/userModel')
 const bcrypt = require('bcryptjs')
 const auth = require('../middleware/authentication')
-//const uploadphoto = require('../middleware/profilephoto')
 const sharp = require('sharp');
 const multer = require('multer')
 
