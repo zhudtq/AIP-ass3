@@ -19,6 +19,7 @@ import { PicRankingComponent } from './pages/chattingPage/main-chatting/pic-rank
 import { ChattingCardComponent } from './pages/chattingPage/chatting-card/chatting-card.component';
 import { ImageUploadComponent } from './pages/chattingPage/image-upload/image-upload.component';
 import { EditPostButtonComponent } from './pages/chattingPage/edit-post-button/edit-post-button.component';
+import { ProfileComponent } from './pages/chattingPage/profile/profile.component';
 
 export function tokenGetter() {
   return sessionStorage.getItem('StrawberryToken')
@@ -36,6 +37,7 @@ export function tokenGetter() {
     PicRankingComponent,
     ChattingCardComponent,
     ImageUploadComponent,
+    ProfileComponent,
     EditPostButtonComponent
   ],
   imports: [
