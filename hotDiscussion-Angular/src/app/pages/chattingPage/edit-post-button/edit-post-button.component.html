@@ -14,11 +14,24 @@
       <!--    <input [disabled]="processing" [(ngModel)]="blog.body" #body="ngModel" class="form-control" type="file" class="form-control-file border">-->
       <input  type="file" class="form-control-file border">
     </div>
+    <table>
+      <tr>
+        <td>
+          <!-- Go Back Button -->
+          <button type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
+        </td>
+        <td>
+          <!-- Save Changes Button -->
+          <button type="submit" name="save" class="btn btn-info">Save Changes</button>
+        </td>
+        <td>
+          <button type="button" name="button" class="btn btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </table>
 
-    <!-- Go Back Button -->
-    <button type="button" name="button" class="btn btn-success" (click)="goBack()">Go Back</button>
-    <!-- Save Changes Button -->
-    <button type="submit" name="save" class="btn btn-info">Save Changes</button>
+
+
 
   </form>
 
