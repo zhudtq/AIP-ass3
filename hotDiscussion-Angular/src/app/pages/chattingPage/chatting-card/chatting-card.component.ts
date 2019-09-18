@@ -4,6 +4,7 @@ import { AuthenticationService } from '../../../commonServices/authentication.se
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
 import { Router } from '@angular/router';
 
+import { LikeButtonService } from "../../../http/like-button-service";
 @Component({
   selector: 'app-chatting-card',
   templateUrl: './chatting-card.component.html',
@@ -17,10 +18,10 @@ export class ChattingCardComponent implements OnInit {
   // TransferSingleCardService
   mainChattingList: any = []
   imagePath: String = "file:/balloon.jpg"
-  myList = ['nicky', 'mike', 'ben']
+  cardId=''
 
   constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService,
-              private transferService: TransferSingleCardService, private router: Router) {}
+              private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router) {}
 
   isAuthOwner(){
       if(this.authService.verifyToken()){
@@ -41,9 +42,7 @@ export class ChattingCardComponent implements OnInit {
     this.transferService.singleCard = this.mainChattingList[myIndex]
   }
 
-    showId(myIndex){
-      console.log(this.mainChattingList[myIndex]._id)
-    }
+
 
     addAuth(){
       for (let n = 0; n < this.mainChattingList.length; n ++){
@@ -64,7 +63,19 @@ export class ChattingCardComponent implements OnInit {
         }
       )
     }
-
+  getCardId(myIndex){
+    this.cardId = this.mainChattingList[myIndex]._id
+  }
+  like(cardIndex){
+    this.getCardId(cardIndex)
+      this.likeButtonService.likeImageId(this.cardId).subscribe((data) => {
+        this.mainChattingList[cardIndex].likes = data['likes']
+        // console.log('cheng gong')
+        // console.log(data)
+      }, (error) => {
+        // console.log('shi bai')
+      })
+  }
   ngOnInit() {
     this.getAllChats()
   }
