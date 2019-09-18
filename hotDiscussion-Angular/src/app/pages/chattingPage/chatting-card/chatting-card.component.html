@@ -16,13 +16,13 @@
     <div class="card-footer bg-dark text-white">
 
       <!-- Edit Button -->
-          <button [routerLink]="['/mainChatting/edit']" (click)="transferValue(i)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn-sm btn-info">Edit</button>
-          <!-- Delete Button -->
-          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn-sm btn-danger">Delete</button></a>
+          <button [routerLink]="['/mainChatting/edit']" (click)="transferValue(i)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>
+          <!-- Delete Button  for admin need to add function later-->
+          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn btn-danger" style='margin:10px;'>Delete</button></a>
           <!-- Likes Dropdown  -->
           <div class="dropdown">
             <!-- Like Button -->
-            <button type="button" name="button" class="btn btn-outline-danger">
+            <button type="button" name="button" class="btn btn-outline-danger" style='margin:10px;'>
               <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">&nbsp;</span>Likes: 21</button>
             <!-- Dropdown Menu Items -->
             <div class="dropdown-content">
