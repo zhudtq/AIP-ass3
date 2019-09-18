@@ -34,6 +34,19 @@ router.get('/chats', async (req, res) => {
     }
 })
 
+router.get('/chat/:id', async (req, res) => {
+    try {
+        const chattingId = req.params.id
+        const singleChatting = await Chat.findOne({_id: chattingId})
+        if(singleChatting) {
+            return res.send(singleChatting)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
+
 router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>{
     try{
         const id = req.params.id

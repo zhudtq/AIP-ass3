@@ -42,7 +42,7 @@ export class LogInComponent implements OnInit {
   // anonymous log in
   hangAround() {
     sessionStorage.clear()
-    this.router.navigate(['/mainChatting'])
+    this.router.navigate(['/mainChatting/chattingCard'])
   }
 
   onToastr(){

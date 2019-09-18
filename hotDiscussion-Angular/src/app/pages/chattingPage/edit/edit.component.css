@@ -1,0 +1,19 @@
+.my-blue {
+    color: rgb(72, 182, 255)
+}
+
+.card-image {
+    height: 410px
+}
+
+.comment-wrapper {
+    margin-top: 1%
+}
+
+.comment-image {
+    height: 280px
+}
+
+.comment-item {
+    margin-bottom: 5px
+}
