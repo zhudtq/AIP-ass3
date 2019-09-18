@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { GetAllChattingsService } from '../../../http/get-all-chattings.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
+import { Router } from '@angular/router';
+
 import { LikeButtonService } from "../../../http/like-button-service";
 @Component({
   selector: 'app-chatting-card',
@@ -19,7 +21,7 @@ export class ChattingCardComponent implements OnInit {
   cardId=''
 
   constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService,
-              private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService) {}
+              private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router) {}
 
   isAuthOwner(){
       if(this.authService.verifyToken()){
@@ -31,6 +33,10 @@ export class ChattingCardComponent implements OnInit {
         }
       }
     }
+
+  goToEditPage(id) {
+    this.router.navigate(['/mainChatting/edit', id])
+  }
 
   transferValue(myIndex: any){
     this.transferService.singleCard = this.mainChattingList[myIndex]

@@ -16,7 +16,7 @@
     <div class="card-footer bg-dark text-white">
 
       <!-- Edit Button -->
-          <button [routerLink]="['/mainChatting/edit']" (click)="transferValue(i)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>
+          <button (click)="goToEditPage(mainChattingList[i]._id)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>
           <!-- Delete Button  for admin need to add function later-->
           <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn btn-danger" style='margin:10px;'>Delete</button></a>
           <!-- Likes Dropdown  -->
@@ -30,7 +30,7 @@
 
             </div>
       </div>
-      <a href="#"><button type="button" name="button" class="btn btn-outline-secondary" style="float: right">Comment</button></a>
+      <button (click)="goToEditPage(mainChattingList[i]._id)" type="button" name="button" class="btn btn-outline-secondary" style="float: right">Comment</button>
     </div>
   </div>
   <br>
