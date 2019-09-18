@@ -22,13 +22,12 @@
           <!-- Likes Dropdown  -->
           <div class="dropdown">
             <!-- Like Button -->
-            <button type="button" name="button" class="btn btn-outline-danger" style='margin:10px;'>
-              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">&nbsp;</span>Likes: 21</button>
+            <button type="button" name="button" class="btn btn-outline-danger" style='margin:10px;' (click)="like(i)">
+              <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true">&nbsp;</span>Likes: {{ chat.likes.length }}</button>
             <!-- Dropdown Menu Items -->
             <div class="dropdown-content">
-              <a href="#">gugui3z24</a>
-              <a href="#">jinder</a>
-              <a href="#">patel</a>
+              <a *ngFor="let liker of mainChattingList[i].likes">{{ liker.liker }}</a>
+
             </div>
       </div>
       <a href="#"><button type="button" name="button" class="btn btn-outline-secondary" style="float: right">Comment</button></a>
