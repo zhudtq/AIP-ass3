@@ -6,6 +6,7 @@ const auth = require('../middleware/authentication')
 const upload = require('../middleware/chattingImage')
 const router = new express.Router()
 const User = require('../models/userModel')
+const changePostPic = require('../middleware/editPost')
 router.post('/chats', auth, upload.single('image'), async (req, res) => {
     const chat = new Chat({
         mainImage: req.myFileUrl,
@@ -33,20 +34,35 @@ router.get('/chats', async (req, res) => {
     }
 })
 
-router.post('/edit/:id', async (req, res) =>{
+router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>{
     try{
         const id = req.params.id
         console.log('12333')
         console.log(id)
-        // const chatList = await Chat.find({id})
         res.send({id})
+        const editPost = await Chat.save()
+        res.status(201).send(editPost)
+        console.log(editPost)
+
     }
     catch (e) {
         res.status(404).send()
     }
-    
-    
+
+
 })
 
+router.delete('/delete/:id',auth, async (req, res) => {
+    try {
+        const id = req.params.id
+        const deletePost = await Chat.findOne({_id: id})
+        deletePost.remove()
+        res.status(201).send("delete successfully")
+
+
+    } catch (e) {
+        res.status(404).send()
+    }
+})
 
 module.exports = router
