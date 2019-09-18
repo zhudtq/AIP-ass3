@@ -64,5 +64,26 @@ router.delete('/delete/:id',auth, async (req, res) => {
         res.status(404).send()
     }
 })
+router.put('/like/:id',auth, async (req, res) => {
+    try {
+        const id = req.params.id
+        let likedPost = await Chat.findOne({_id: id})
 
+        for (let i =0; i<likedPost.likes.length; i++){
+            if(likedPost.likes[i].liker == req.user.name){
+                likedPost.likes.splice(i,1)
+                await likedPost.save()
+                return res.status(201).send(likedPost)
+            }
+        }
+
+        likedPost.likes.push({liker: req.user.name})
+        await likedPost.save()
+        res.status(201).send(likedPost)
+
+
+    } catch (e) {
+        res.status(404).send(likedPost)
+    }
+})
 module.exports = router
