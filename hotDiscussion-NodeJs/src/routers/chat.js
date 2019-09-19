@@ -64,13 +64,11 @@ router.get('/chats/likes', async (req, res) => {
                         $group:
                         {   
                             _id:  {name: "$name"},
-                            likes: {$sum : "$totalLike"}
-                           
-                            
+                            likes: {$sum : "$totalLike"}  
                          }
                     },
                     {
-                $sort : {likes : -1}
+                        $sort : {likes : -1}
                     }
             ]
         )
