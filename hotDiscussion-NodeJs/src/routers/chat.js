@@ -7,6 +7,8 @@ const upload = require('../middleware/chattingImage')
 const router = new express.Router()
 const User = require('../models/userModel')
 const changePostPic = require('../middleware/editPost')
+const comment = require('../middleware/comment')
+
 router.post('/chats', auth, upload.single('image'), async (req, res) => {
     const chat = new Chat({
         mainImage: req.myFileUrl,
@@ -39,6 +41,7 @@ router.get('/chat/:id', async (req, res) => {
         const chattingId = req.params.id
         const singleChatting = await Chat.findOne({_id: chattingId})
         if(singleChatting) {
+            console.log(singleChatting)
             return res.send(singleChatting)
         }
     }
@@ -50,7 +53,6 @@ router.get('/chat/:id', async (req, res) => {
 router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>{
     try{
         const id = req.params.id
-        console.log('12333')
         console.log(id)
         res.send({id})
         const editPost = await Chat.save()
@@ -77,6 +79,7 @@ router.delete('/delete/:id',auth, async (req, res) => {
         res.status(404).send()
     }
 })
+
 router.put('/like/:id',auth, async (req, res) => {
     try {
         const id = req.params.id
@@ -99,4 +102,26 @@ router.put('/like/:id',auth, async (req, res) => {
         res.status(404).send(likedPost)
     }
 })
+
+router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res) => {
+    try {
+        let id = req.params.id
+        let path = req.params.path
+
+        // console.log(path)
+        let myChat = await Chat.findOne({_id: id})
+        if (myChat) {
+            myChat.comments.push({
+                commenter: req.user.name,
+                content: req.finalPath
+            })
+            await myChat.save()
+            res.status(201).send(myChat)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
+
 module.exports = router

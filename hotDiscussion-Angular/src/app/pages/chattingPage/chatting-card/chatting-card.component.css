@@ -43,3 +43,7 @@
 .dropdown:hover .dropbtn {
   background-color: #3e8e41;
 }
+
+.img-limit-wrapper {
+  max-height: 500px
+}

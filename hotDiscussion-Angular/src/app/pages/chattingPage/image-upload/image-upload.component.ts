@@ -11,6 +11,8 @@ export class ImageUploadComponent implements OnInit {
   pickedFile: File = null;
   pitch: string = "";
   fileName: string = "";
+  mainImageUrl: string = '';
+  commentUrl: string = '';
 
   btnToggle: boolean = true;
   @Output() childEvent = new EventEmitter();
