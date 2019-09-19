@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { HostUrlService } from './host-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EditPostButtonService {
-  baseUrl = 'http://localhost:3000/edit/'
+  
+  constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) {}
+
+  baseUrl = this.hostUrlSerivce.hostURL + '/edit/';
   options;
-  constructor(private http: HttpClient) {}
 
   postImageId(id) {
     return this.http.post(this.baseUrl + id, {});
