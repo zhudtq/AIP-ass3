@@ -13,7 +13,8 @@ router.post('/chats', auth, upload.single('image'), async (req, res) => {
     const chat = new Chat({
         mainImage: req.myFileUrl,
         ownerName: req.user.name,
-        ownerId: req.user._id
+        ownerId: req.user._id,
+        path: req.myPath
     })
     
     try {

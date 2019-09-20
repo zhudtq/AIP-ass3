@@ -11,8 +11,7 @@ export class ImageUploadComponent implements OnInit {
   pickedFile: File = null;
   pitch: string = "";
   fileName: string = "";
-  mainImageUrl: string = '';
-  commentUrl: string = '';
+  @Input() mainImageUrl: string = '';
 
   btnToggle: boolean = true;
   @Output() childEvent = new EventEmitter();
@@ -63,7 +62,7 @@ export class ImageUploadComponent implements OnInit {
       myImage.append('image', this.pickedFile, '-' + this.pickedFile.name);
     }
     
-    this.uploadService.submitMainChat(myImage).subscribe((data) => {
+    this.uploadService.submitMainChat(this.mainImageUrl, myImage).subscribe((data) => {
       this.childEvent.emit('Image component')
       this.toastr.success('Your image has been successfully uploaded', 'Success')
     }, (error) => {

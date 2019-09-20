@@ -4,14 +4,12 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class UploadMainChattingService {
-  baseUrl = 'http://localhost:3000/chats'
+export class CommentService {
+  baseUrl = "http://localhost:3000/comment"
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  submitMainChat(url: string, model: any) {
+  postComment(url: string, model: any) {
     return this.http.post(url, model)
   }
-
-
 }
