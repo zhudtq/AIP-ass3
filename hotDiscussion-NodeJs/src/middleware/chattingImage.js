@@ -20,6 +20,7 @@ const up = multer.diskStorage({
 
         let baseServerUrl = 'http://localhost:3000/'
         req.myFileUrl = baseServerUrl + req.user.name + '&&' + date + '/' + 'main.jpg'
+        req.myPath = req.user.name + '&&' + date
 
         fs.mkdirSync(basePath)
         fs.mkdirSync(commentsPath)

@@ -17,3 +17,8 @@
 .comment-item {
     margin-bottom: 5px
 }
+
+.edit-part:hover {
+    color: rgb(68, 154, 235);
+    cursor: pointer
+}

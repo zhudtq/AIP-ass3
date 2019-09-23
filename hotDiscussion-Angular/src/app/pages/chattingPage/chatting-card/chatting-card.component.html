@@ -1,4 +1,4 @@
-<app-image-upload (childEvent)="getAllChats()"></app-image-upload>
+<app-image-upload [mainImageUrl]="mainImageUrl" (childEvent)="getAllChats()"></app-image-upload>
 
 <div class="blog-post" *ngFor="let chat of mainChattingList; let i = index">
   <div class="card">
@@ -8,7 +8,7 @@
 
     <div class="card-body bg-secondary">
       <div class="view overlay zoom">
-        <img [src]="chat?.mainImage" class="img-fluid " alt="zoom">
+        <img [src]="chat?.mainImage" class="img-fluid img-limit-wrapper" alt="zoom">
       </div>
       <strong>Posted by:</strong><span class="col-4">{{chat?.ownerName}}</span>
       <strong>Date:</strong> <span class="col-3">{{chat?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>

@@ -9,6 +9,9 @@ const chatSchema = mongoose.Schema({
         type: String,
         required: true,
     },
+    path: {
+        type: String
+    },
     ownerId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
