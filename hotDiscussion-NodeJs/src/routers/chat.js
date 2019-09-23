@@ -52,9 +52,20 @@ router.get('/chat/:id', async (req, res) => {
 
 router.get('/chats/likes', async (req, res) => {
     try {
+        let nowTime = new Date((new Date).getTime());
+        let lastWeek = new Date((new Date).getTime() - 7 * 1000 * 86400);
         const userRanking = await Chat.aggregate(
-            [
+            [       
                     {
+                        $match: 
+                        { 
+                            "createdAt":{
+                                $gte: lastWeek,
+                                $lte: nowTime
+                                        }
+                        }
+                    },
+                    {   
                         $project:
                         {
                             _id: "$ownerName",
@@ -76,6 +87,9 @@ router.get('/chats/likes', async (req, res) => {
             ]
         )
         if(userRanking) {
+            if(userRanking.length > 5){
+                userRanking.splice(5)
+            }
             return res.send(userRanking)
         }
     }
