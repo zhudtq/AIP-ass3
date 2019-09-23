@@ -172,4 +172,46 @@ router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res
     }
 })
 
+router.get('/chats/topics', async (req, res) => {
+    try {
+        let nowTime = new Date((new Date).getTime());
+        let lastWeek = new Date((new Date).getTime() - 7 * 1000 * 86400);
+        const topicRanking = await Chat.aggregate(
+            [       
+                {
+                    $match: 
+                    { 
+                        "createdAt":{
+                            $gte: new Date((new Date).getTime() - 15 * 1000 * 86400),
+                            $lte: new Date((new Date).getTime())
+                                      }           
+                    }},
+                {   
+                
+                    $project:
+                    {
+                        _id: "$ownerName",
+                        name: "$ownerName",
+                        image: "$mainImage",
+                        totalLike: {$size : "$likes"},
+                        count: {sum: 1}
+                    }
+                },
+            
+                {
+                    $sort : {totalLike : -1}
+                }
+            ]
+        )
+        if(topicRanking) {
+            if(topicRanking.length > 1){
+                topicRanking.splice(1)
+            }
+            return res.send(topicRanking)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
 module.exports = router
