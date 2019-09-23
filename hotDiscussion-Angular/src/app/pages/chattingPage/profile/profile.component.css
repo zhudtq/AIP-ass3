@@ -1,0 +1,9 @@
+.signup-outer-wrapper {
+    background: rgba(255, 255, 255, 0.959);
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 30px 50px 30px 50px;
+
+    display: inline-block;
+    box-shadow: 0 500px 500px 0px rgba(0, 0, 0, 0.1);
+}

@@ -16,4 +16,8 @@ export class UploadProfileService {
     return this.http.post(this.baseUrl, formData)
 
   }
+
+  getAvatar(id: any){
+  this.http.get(this.hostUrlSerivce.hostURL + '/users/:id/avatar', id)
+  }
 }
