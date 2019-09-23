@@ -5,6 +5,7 @@ import {Observable} from 'rxjs';
 import { User } from '../../models/signup/user.model';
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
+import { HostUrlService } from '../host-url.service';
 
 
 @Injectable({
@@ -15,9 +16,9 @@ export class UserService {
   private token: string;
   private authStatusListener = new Subject<boolean>();
 
-  baseUrl = 'http://localhost:3000/users';
+  constructor(private http: HttpClient, private router: Router, private hostUrlSerivce: HostUrlService) {   }
 
-  constructor(private http: HttpClient, private router: Router) {   }
+  baseUrl = this.hostUrlSerivce.hostURL + '/users/';
 
   registerUser(user : User){
     const body: User = {

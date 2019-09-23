@@ -42,8 +42,41 @@ router.get('/chat/:id', async (req, res) => {
         const chattingId = req.params.id
         const singleChatting = await Chat.findOne({_id: chattingId})
         if(singleChatting) {
-            console.log(singleChatting)
             return res.send(singleChatting)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
+
+router.get('/chats/likes', async (req, res) => {
+    try {
+        const userRanking = await Chat.aggregate(
+            [
+                    {
+                        $project:
+                        {
+                            _id: "$ownerName",
+                            name: "$ownerName",
+                            totalLike: {$size : "$likes"},
+                            count: {sum: 1}
+                        }
+                    },
+                    {
+                        $group:
+                        {   
+                            _id:  {name: "$name"},
+                            likes: {$sum : "$totalLike"}  
+                         }
+                    },
+                    {
+                        $sort : {likes : -1}
+                    }
+            ]
+        )
+        if(userRanking) {
+            return res.send(userRanking)
         }
     }
     catch (e) {

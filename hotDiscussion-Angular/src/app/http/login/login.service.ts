@@ -3,14 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../../models/login/userModel';
 import { map } from 'rxjs/operators';
 import { UserService } from '../../http/signup/user.service';
+import { HostUrlService } from '../host-url.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  baseUrl = 'http://localhost:3000/users/login'
 
-  constructor(private http: HttpClient, private UserService: UserService) {}
+  constructor(private http: HttpClient, private UserService: UserService, private hostUrlSerivce: HostUrlService) {}
+
+  baseUrl = this.hostUrlSerivce.hostURL + '/users/login';
 
   logIn(userModel: UserModel) {
     return this.http.post(this.baseUrl, userModel)
