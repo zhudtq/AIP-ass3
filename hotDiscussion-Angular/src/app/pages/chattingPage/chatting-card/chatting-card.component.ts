@@ -3,6 +3,7 @@ import { GetAllChattingsService } from '../../../http/get-all-chattings.service'
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
 import { Router } from '@angular/router';
+import { UploadMainChattingService } from '../../../http/image/upload-main-chatting.service';
 
 import { LikeButtonService } from "../../../http/like-button-service";
 @Component({
@@ -19,9 +20,11 @@ export class ChattingCardComponent implements OnInit {
   mainChattingList: any = []
   imagePath: String = "file:/balloon.jpg"
   cardId=''
+  mainImageUrl: string = ''
 
   constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService,
-              private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router) {}
+              private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router,
+              private uploadMainImage: UploadMainChattingService) {}
 
   isAuthOwner(){
       if(this.authService.verifyToken()){
@@ -77,6 +80,7 @@ export class ChattingCardComponent implements OnInit {
       })
   }
   ngOnInit() {
+    this.mainImageUrl = this.uploadMainImage.baseUrl;
     this.getAllChats()
   }
 

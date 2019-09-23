@@ -29,4 +29,8 @@ export class AuthenticationService {
     return decodedToken
   }
 
+  verifyAdmin() {
+    let user = this.decodeToken()
+  }
+
 }

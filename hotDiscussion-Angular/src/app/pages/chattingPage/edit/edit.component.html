@@ -3,30 +3,34 @@
     <img [src]="imageUrl" class="card-img-top card-image" alt="Single Card">
   </div>
   <div class="card-header">
+    <small>Posted by <span class="my-blue">{{singleChat?.ownerName}}</span></small>
+    <small> at {{singleChat?.createdAt | date:'MMM, dd, yyyy - hh：mm：ss'}}</small>
+  </div>
+  <div class="card-footer">
     <div class="row justify-content-center">
-      <div class="col-3">
-        <i class="far fa-comment-dots"></i><small>comment</small>
+      <div class="col-3 edit-part" (click)="comment()">
+        <i class="far fa-comment-dots"></i><small>{{singleChat?.comments?.length}} comments</small>
       </div>
-      <div class="col-3">
+      <div class="col-3 edit-part">
         <div *ngIf="likesToggle">
-            <i class="fas fa-thumbs-up"></i><small>dislike</small>
+            <i class="fas fa-thumbs-up"></i><small>{{singleChat?.likes?.length}} likes</small>
         </div>
         <div *ngIf="!likesToggle">
-            <i class="far fa-thumbs-up"></i><small>like</small>
+            <i class="far fa-thumbs-up"></i><small>{{singleChat?.likes?.length}} likes</small>
         </div>
       </div>
-      <div class="col-3">
+      <div class="col-3 edit-part">
           <i class="far fa-edit"></i><small>edit</small>
       </div>
-      <div class="col-3">
+      <div class="col-3 edit-part" (click) = delete()>
           <i class="far fa-trash-alt"></i><small>delete</small>
       </div>
     </div>
   </div>
-  <div class="card-footer">
-    <small>Posted by <span class="my-blue">{{singleChat?.ownerName}}</span></small>
-    <small> at {{singleChat?.createdAt | date:'MMM, dd, yyyy - hh：mm：ss'}}</small>
-  </div>
+</div>
+
+<div class="myComponentWrapper" *ngIf="myComponentToggle">
+  <app-image-upload [mainImageUrl] = "commentUrl" (childEvent) = "getChat()"></app-image-upload>
 </div>
 
 <!-- comment -->
@@ -34,13 +38,13 @@
     <div class="card-header my-blue">
         Comments
     </div>
-  <div class="row no-gutters comment-item" *ngFor = "let item of commentList">
+  <div class="row no-gutters comment-item" *ngFor = "let item of singleChat.comments; let i = index">
     <div class="col-md-7">
-      <img [src]="imageUrl" class="card-img comment-image" alt="Comment">
+      <img [src]="item?.content" class="card-img comment-image" alt="Comment">
     </div>
     <div class="col-md-4">
       <div class="card-body">
-        <p class="card-title">Commented by <span class="my-blue">nicky</span></p>
+        <p class="card-title">Commented by <span class="my-blue">{{item?.commenter}}</span></p>
         <p class="card-text"><small class="text-muted">Posted at xxx</small></p>
       </div>
     </div>

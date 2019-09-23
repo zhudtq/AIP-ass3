@@ -8,8 +8,18 @@
   
     <div class="card-body">
       <!-- <h4 class="card-title"></h4> -->
-      <input type="file" (change)="onFilePicked($event)" id="fileUpload">
-      <button (click)="onUpload()" [disabled]="btnToggle" class="btn btn-primary myBtn">Submit</button>
+      <div class="row">
+      <div class="col-5">
+        <input type="file" (change)="onFilePicked($event)" id="fileUpload">
+      </div>
+      <div class="col-2">
+        <button (click)="onUpload()" [disabled]="btnToggle" class="btn btn-primary myBtn">Submit</button>
+      </div>
+      <div class="col-5">
+        <p><small>* 3MB files accepted</small></p>
+        <p><small>* only jpg/jpeg png accepted</small></p>
+      </div>
+      </div>
     </div>
   
 </div>
