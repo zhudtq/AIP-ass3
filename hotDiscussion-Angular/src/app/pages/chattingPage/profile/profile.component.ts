@@ -36,13 +36,13 @@ onSubmit() {
       .subscribe((data) => {
                 console.log('success')
                 alert('upload!')
-                console.log(data)
+                this.getUrl();   
               },
               (error) => {
                 alert('fail'+ error)
                 console.log(error);
               })
-             
+         
       };
       
 getUserId(){
@@ -52,39 +52,31 @@ getUserId(){
   //console.log(this.userId)
 }
 
-
-// showAvatar(){
-    // this.uploadProfileService.getAvatar(this.userId).subscribe((data) => {
-    //   // let imageBase64String= btoa(data);
-    //   // this.imageUrl = 'data:image/jpeg;base64,' + imageBase64String;
-    //   this.imageUrl = 'http://localhost:3000'+'/users/'+this.userId+'/avatar/';
-    //     alert('sucess')
-    //     console.log(data)
-    //   },
-    //   (error) => {
-    //     alert('fail'+ error)
-    //     console.log(error);
-    //   });
-  // }
-  getUrl(){
-    this.uploadProfileService.getAvatar(this.userId);
-  
-        this.imageUrl = 'http://localhost:3000'+'/users/'+this.userId+'/avatar/';
-    
-      // let imageBase64String= btoa(data);
-      // this.imageUrl = 'data:image/jpeg;base64,' + imageBase64String;
-      // this.imageUrl = 'http://localhost:3000'+'/users/'+this.userId+'/avatar/';
-        //alert('sucess')
-        //console.log(data)
-
-    //this.imageUrl = 'http://localhost:3000'+'/users/'+this.userId+'/avatar/';
+createImageFromBlob(image: Blob) {
+  let reader = new FileReader();
+  reader.addEventListener("load", () => {
+    this.imageUrl = reader.result;
+  }, false);
+  if (image) {
+    reader.readAsDataURL(image);
   }
+}
 
-  
-  ngOnInit() {
-    this.getUserId();
-    this.getUrl();
-    }
+getUrl(){
+  this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
+    this.createImageFromBlob(data);
+    //console.log(data)
+    //console.log(this.imageUrl)
+  }, (error) => {
+    this.imageUrl = 'bg3.png';
+    console.log('error')
+  })      
+}
+
+ngOnInit() {
+  this.getUserId();
+  this.getUrl();
+  }
       
 
 }

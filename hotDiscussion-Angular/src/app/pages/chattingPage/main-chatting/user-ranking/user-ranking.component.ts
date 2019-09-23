@@ -20,7 +20,7 @@ export class UserRankingComponent implements OnInit {
     this.userRankingService.getUserRanking().subscribe(
       (data)=> {
         this.userRankingList = data
-        this.showTop(5)
+        // this.showTop(5)
         console.log(data)
       }, (error)=> {
         console.log(error)
@@ -28,8 +28,8 @@ export class UserRankingComponent implements OnInit {
     )
   }
 
-  showTop(index: any){
-    this.userRankingList.splice(index)
-  }
+  // showTop(index: any){
+  //   this.userRankingList.splice(index)
+  // }
 
 }
