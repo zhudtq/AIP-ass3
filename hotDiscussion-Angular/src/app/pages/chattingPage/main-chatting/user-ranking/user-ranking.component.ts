@@ -27,7 +27,6 @@ export class UserRankingComponent implements OnInit {
       }
     )
   }
-
   // showTop(index: any){
   //   this.userRankingList.splice(index)
   // }
