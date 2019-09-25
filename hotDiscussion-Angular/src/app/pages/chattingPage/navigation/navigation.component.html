@@ -12,6 +12,9 @@
   <div class="collapse navbar-collapse" id="navbarButton">
     <ul class="navbar-nav">
       <li *ngIf="userIsAuthenticated" class="nav-item">
+        <img src={{imageUrl}} class="img-circle special-img">
+      </li>
+      <li *ngIf="userIsAuthenticated" class="nav-item">
         <div mat-button class="welcomeMsg">
           <button class="btn btn-dark welcomeBtn" disabled="true">Welcome, {{userName}}</button>
         </div>
