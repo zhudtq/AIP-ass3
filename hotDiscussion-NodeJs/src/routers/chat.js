@@ -182,9 +182,9 @@ router.get('/chats/topics', async (req, res) => {
                     $match: 
                     { 
                         "createdAt":{
-                            $gte: new Date((new Date).getTime() - 15 * 1000 * 86400),
-                            $lte: new Date((new Date).getTime())
-                                      }           
+                            $gte: lastWeek,
+                            $lte: nowTime
+                                    }           
                     }},
                 {   
                 
@@ -204,8 +204,8 @@ router.get('/chats/topics', async (req, res) => {
             ]
         )
         if(topicRanking) {
-            if(topicRanking.length > 1){
-                topicRanking.splice(1)
+            if(topicRanking.length > 3){
+                topicRanking.splice(3)
             }
             return res.send(topicRanking)
         }

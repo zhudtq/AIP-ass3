@@ -68,7 +68,7 @@ getUrl(){
     //console.log(data)
     //console.log(this.imageUrl)
   }, (error) => {
-    this.imageUrl = 'bg3.png';
+    this.imageUrl = 'bg1.png';
     console.log('error')
   })      
 }
