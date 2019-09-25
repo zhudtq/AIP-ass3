@@ -8,8 +8,6 @@ import { PicRankingService} from '../../../../http/pic-ranking.service';
   styleUrls: ['./pic-ranking.component.css']
 })
 export class PicRankingComponent implements OnInit {
-
-  imageUrl: any [];
   
   topicRankingList;
 
@@ -17,7 +15,7 @@ export class PicRankingComponent implements OnInit {
 
   getUrl(){
     this.picRankingService.getPicRanking().subscribe((data)=> {
-      console.log(data)
+      //console.log(data)
       this.topicRankingList = data;
     }, (error) => {
       console.log('error')
