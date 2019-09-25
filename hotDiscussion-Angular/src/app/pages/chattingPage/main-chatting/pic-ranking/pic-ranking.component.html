@@ -1,24 +1,21 @@
 
 
 <div class="p-4 mb-3 bg-light rounded">
-
-  <h2 class="font-weight-bolder">Topic ranking</h2>
+  <h3 class="font-weight-bolder">Topic ranking</h3>
   <br>
-  <!-- Card -->
-  <div class="card">
-
-    <!-- Card image -->
-    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap">
-
-    <!-- Card content -->
-    <div class="card-body">
-
-      <!-- Title -->
-      <h4 class="card-title"><a>TOP 1</a></h4>
-      <!-- Button -->
-      <a href="#" class="btn btn-primary">Browse</a>
-
+  <li *ngFor="let like of topicRankingList; let i = index" class="d-flex">
+    
+    <div class="card mb-3">
+      <img class="card-img-top" src={{topicRankingList[i]?.image}} alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title"><a>TOP {{i+1}}</a></h5>
+        <li class="l d-flex justify-content-between align-items-center">
+            <span>From:</span><span>{{topicRankingList[i]?.name}} </span> Likes:
+            <span class="badge badge-primary badge-pill">{{topicRankingList[i]?.totalLike}}</span>
+          </li>
+        <!-- <a href="#" class="btn btn-primary">Browse</a> -->
+      </div>
     </div>
-
-  </div>
+    
+  </li>
 </div>
