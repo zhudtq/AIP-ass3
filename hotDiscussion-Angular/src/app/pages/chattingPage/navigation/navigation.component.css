@@ -1,5 +1,5 @@
 #navbarButton{
-    position: absolute;
+    position: relative;
     margin-left: 60%;  
 }
 
@@ -10,3 +10,12 @@
 .welcomeBtn {
     border: 0
 }
+.navbar-collapse.collapse {
+    display: block!important;
+  }
+
+.navbar{
+    position: sticky;
+    top: 0px;
+    z-index: 10;
+  }
