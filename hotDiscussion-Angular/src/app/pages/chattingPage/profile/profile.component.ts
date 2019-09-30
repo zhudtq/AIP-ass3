@@ -1,25 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { UploadProfileService } from '../../../http/upload-profile.service';
 import { HttpClient } from '@angular/common/http';
+import { AuthenticationService } from '../../../commonServices/authentication.service';
+import { Observable, interval, Subscription } from 'rxjs';
+import { AfterViewInit, ViewChild } from '@angular/core';
+import { NavigationComponent } from '../navigation/navigation.component';
+import { async } from '@angular/core/testing';
+
+
 
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css']
+  styleUrls: ['./profile.component.css'],
+  providers: [UploadProfileService, AuthenticationService]
 })
 export class ProfileComponent implements OnInit {
+fileData: File = null;
+userId = '';
+image;
+imageUrl;
+updateSubscription: Subscription;
 
-  
-  fileData: File = null;
-constructor(private http: HttpClient, private uploadProfileService: UploadProfileService) { }
- 
+constructor(private http: HttpClient, private uploadProfileService: UploadProfileService, private authService: AuthenticationService) { 
+}
 
 onFilePicked(event){
  console.log("onfilepicked event")
  if (event.target.files[0]){
     this.fileData = <File>event.target.files[0];
-    console.log(this.fileData);
  }
 }
 
@@ -28,18 +38,48 @@ onSubmit() {
     formData.append('avatar', this.fileData);
     this.uploadProfileService.uploadImage(formData)
       .subscribe((data) => {
-                console.log('success')
-                alert('upload!')
+                alert('Upload!')
+                this.getUrl();  
               },
               (error) => {
                 alert('fail'+ error)
                 console.log(error);
-              })
+              })       
       };
-
-
-  
-  ngOnInit() {
+      
+getUserId(){
+  if(this.authService.verifyToken()){
+    this.userId = this.authService.decodeToken()["_id"]
   }
+}
 
+// Reference to solution of https://stackoverflow.com/questions/45530752/getting-image-from-api-in-angular-4-5
+createImageFromBlob(image: Blob) {
+  let reader = new FileReader();
+  reader.addEventListener("load", () => {
+    this.imageUrl = reader.result;
+    this.image = image;
+    this.uploadProfileService.showImage(this.image);
+  }, false);
+  if (image) {
+    reader.readAsDataURL(image);
+  }
+}
+
+getUrl(){
+  this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
+    this.createImageFromBlob(data);
+    this.image = data;
+    console.log(this.image);
+    
+  }, (error) => {
+    this.imageUrl = 'bg1.png';
+    console.log('error')
+  })      
+}
+
+ngOnInit() {
+  this.getUserId();
+  this.getUrl();
+  }
 }

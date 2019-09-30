@@ -1,9 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../../http/signup/user.service';
 import { Subscription } from "rxjs";
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { LogoutService } from '../../../http/logout.service';
 import { ToastrService } from 'ngx-toastr';
+import { UploadProfileService } from '../../../http/upload-profile.service';
+import { HttpClient } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
 
 @Component({
   selector: 'app-navigation',
@@ -15,10 +18,17 @@ export class NavigationComponent implements OnInit{
 
   userIsAuthenticated = false;
   userName = '';
-  // private authListenerSubs: Subscription;
+  userId = '';
+  imageUrl;
 
-  constructor(private UserService: UserService, private authService: AuthenticationService,
-    private logoutService: LogoutService, private toastrService: ToastrService) { }
+  constructor(private authService: AuthenticationService,
+    private logoutService: LogoutService, private toastrService: ToastrService,
+    private uploadProfileService: UploadProfileService, private http: HttpClient,) { 
+
+      this.uploadProfileService.listen().subscribe((image:any) => {
+        this.createImageFromBlob(image);
+    })
+    }
 
   onLogout(){
     this.logoutService.logoutAll().subscribe(()=> {
@@ -29,26 +39,39 @@ export class NavigationComponent implements OnInit{
       console.log('error' + error)
     })
   }
-
-  ngOnInit() {
-    console.log(this.authService.getToken())
+  getUserId(){
     if(this.authService.verifyToken()){
-      this.userName = this.authService.decodeToken()['name']
-      return this.userIsAuthenticated = true
+      this.userId = this.authService.decodeToken()["_id"]
     }
-    this.userIsAuthenticated = false
+  }
+  createImageFromBlob(image: Blob) {
+    let reader = new FileReader();
+    reader.addEventListener("load", () => {
+      this.imageUrl = reader.result;
+    }, false);
+    if (image) {
+      reader.readAsDataURL(image);
+    }
   }
 
-  // ngOnInit() {
-  //   this.userIsAuthenticated = this.UserService.getIsAuth();
-  //   this.authListenerSubs = this.UserService
-  //     .getAuthStatusListener()
-  //     .subscribe(isAuthenticated => {
-  //       this.userIsAuthenticated = isAuthenticated;
-  //     });
-  // }
-  // ngOnDestroy() {
-  //   this.authListenerSubs.unsubscribe();
-  // }
+  getUrl(){
+    this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
+      this.createImageFromBlob(data);
+    }, (error) => {
+      this.imageUrl = 'bg1.png';
+      console.log('error')
+    })      
+  }
+  
 
+  ngOnInit() {
+    this.getUserId();
+    this.getUrl();
+    console.log(this.authService.getToken())
+    if(this.authService.verifyToken()){
+      this.userName = this.authService.decodeToken()['name'];
+      return this.userIsAuthenticated = true;
+    }
+    this.userIsAuthenticated = false;
+  }
 }

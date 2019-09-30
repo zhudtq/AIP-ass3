@@ -52,9 +52,20 @@ router.get('/chat/:id', async (req, res) => {
 
 router.get('/chats/likes', async (req, res) => {
     try {
+        let nowTime = new Date((new Date).getTime());
+        let lastWeek = new Date((new Date).getTime() - 7 * 1000 * 86400);
         const userRanking = await Chat.aggregate(
-            [
+            [       
                     {
+                        $match: 
+                        { 
+                            "createdAt":{
+                                $gte: lastWeek,
+                                $lte: nowTime
+                                        }
+                        }
+                    },
+                    {   
                         $project:
                         {
                             _id: "$ownerName",
@@ -76,6 +87,9 @@ router.get('/chats/likes', async (req, res) => {
             ]
         )
         if(userRanking) {
+            if(userRanking.length > 5){
+                userRanking.splice(5)
+            }
             return res.send(userRanking)
         }
     }
@@ -158,4 +172,48 @@ router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res
     }
 })
 
+router.get('/chats/topics', async (req, res) => {
+    try {
+        let nowTime = new Date((new Date).getTime());
+        let lastWeek = new Date((new Date).getTime() - 7 * 1000 * 86400);
+        const topicRanking = await Chat.aggregate(
+            [       
+                {
+                    $match: 
+                    { 
+                        "createdAt":{
+                            $gte: lastWeek,
+                            $lte: nowTime
+                                    }           
+                    }},
+                {   
+                
+                    $project:
+                    {
+                        _id: "$ownerName",
+                        name: "$ownerName",
+                        image: "$mainImage",
+                        totalLike: {$size : "$likes"},
+                        count: {sum: 1}
+                    }
+                },
+                {
+                    $match : {totalLike: {$gt : 0}}
+                },
+                {
+                    $sort : {totalLike : -1 }
+                }
+            ]
+        )
+        if(topicRanking) {
+            if(topicRanking.length > 3){
+                topicRanking.splice(3)
+            }
+            return res.send(topicRanking)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
 module.exports = router

@@ -66,7 +66,7 @@ export class ImageUploadComponent implements OnInit {
       this.childEvent.emit('Image component')
       this.toastr.success('Your image has been successfully uploaded', 'Success')
     }, (error) => {
-      this.toastr.success(error.message, 'Failure')
+      this.toastr.error(error.message, 'Failure')
     })
 
   }

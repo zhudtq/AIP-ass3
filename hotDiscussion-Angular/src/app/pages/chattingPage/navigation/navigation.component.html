@@ -1,42 +1,26 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="navbar">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="/mainChatting">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/mainChatting/chattingCard">Home <span class="sr-only">(current)</span></a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/mainChatting">Feature1</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/mainChatting">Feature2</a>
-      </li>
-      <!-- <li class="nav-item dropdown"> -->
-        <!-- <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div> -->
-      <!-- </li> -->
     </ul>
   </div>
   <div class="collapse navbar-collapse" id="navbarButton">
-    <!-- <button routerLink="/signup" class="btn btn-outline-warning" type="button">Sign Up</button>
-    <button routerLink="/login" class="btn btn-outline-info ml-2" type="button">Login</button> -->
     <ul class="navbar-nav">
+      <li *ngIf="userIsAuthenticated" class="nav-item">
+        <img src={{imageUrl}} class="img-circle special-img">
+      </li>
       <li *ngIf="userIsAuthenticated" class="nav-item">
         <div mat-button class="welcomeMsg">
           <button class="btn btn-dark welcomeBtn" disabled="true">Welcome, {{userName}}</button>
         </div>
       </li>
       <li *ngIf="userIsAuthenticated" class="nav-item">
-        <a mat-button class="btn btn-outline-warning"  routerLink="/profile" >My Profile</a>
+        <a mat-button class="btn btn-outline-warning"  routerLink="/profile" >Profile</a>
       </li>
       <li *ngIf="!userIsAuthenticated" class="nav-item">
         <a mat-button class="btn btn-outline-warning" routerLink="/login">Login</a>
