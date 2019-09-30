@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CommentService {
   baseUrl = "http://localhost:3000/comment"
+  changePicUrl = "http://localhost:3000/edit"
 
   constructor(private http: HttpClient) { }
 

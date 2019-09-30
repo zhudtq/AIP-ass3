@@ -19,10 +19,10 @@
             <i class="far fa-thumbs-up"></i><small>{{singleChat?.likes?.length}} likes</small>
         </div>
       </div>
-      <div class="col-3 edit-part">
+      <div class="col-3 edit-part" *ngIf="isAuthOwner()" (click)="goToChangePic()">
           <i class="far fa-edit"></i><small>edit</small>
       </div>
-      <div class="col-3 edit-part" (click) = delete()>
+      <div class="col-3 edit-part" *ngIf="isAuthOwner() || isAdmin()" (click) = delete()>
           <i class="far fa-trash-alt"></i><small>delete</small>
       </div>
     </div>
@@ -30,9 +30,11 @@
 </div>
 
 <div class="myComponentWrapper" *ngIf="myComponentToggle">
-  <app-image-upload [mainImageUrl] = "commentUrl" (childEvent) = "getChat()"></app-image-upload>
+  <app-image-upload [mainImageUrl] = "commentUrl" (childEvent) = "getChat()" name="Comment your image here"></app-image-upload>
 </div>
-
+<div class="changePostWrapper" *ngIf="changePicToggle">
+  <app-image-upload [mainImageUrl] = "chnagePicUrl" (childEvent) = "getChat()" name="Change Your Post Here"></app-image-upload>
+</div>
 <!-- comment -->
 <div class="card mb-3 comment-wrapper">
     <div class="card-header my-blue">

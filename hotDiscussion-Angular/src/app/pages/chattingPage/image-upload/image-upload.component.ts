@@ -12,7 +12,7 @@ export class ImageUploadComponent implements OnInit {
   pitch: string = "";
   fileName: string = "";
   @Input() mainImageUrl: string = '';
-
+  @Input() name:string=''
   btnToggle: boolean = true;
   @Output() childEvent = new EventEmitter();
 
@@ -24,7 +24,7 @@ export class ImageUploadComponent implements OnInit {
   onFilePicked(event){
     console.log(1)
     this.btnToggle = true
-    if (event.target.files[0]){   
+    if (event.target.files[0]){
       this.pickedFile = <File>event.target.files[0]
       this.pitch = ""
       this.fileName = this.pickedFile.name
@@ -52,7 +52,7 @@ export class ImageUploadComponent implements OnInit {
     else {
       this.pitch = "* No file selected, please select a file to upload"
       this.pickedFile = null
-    }  
+    }
   }
 
   onUpload(){
@@ -61,7 +61,7 @@ export class ImageUploadComponent implements OnInit {
     if (this.pickedFile){
       myImage.append('image', this.pickedFile, '-' + this.pickedFile.name);
     }
-    
+
     this.uploadService.submitMainChat(this.mainImageUrl, myImage).subscribe((data) => {
       this.childEvent.emit('Image component')
       this.toastr.success('Your image has been successfully uploaded', 'Success')
