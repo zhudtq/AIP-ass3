@@ -4,6 +4,8 @@ import { GetChatByIdService } from '../../../http/get-chat-by-id.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../../http/image/comment.service';
+import {DeleteService} from "../../../http/delete.service";
+import { Location } from "@angular/common";
 // import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit',
@@ -23,7 +25,7 @@ export class EditComponent implements OnInit {
   currentName = '';
   isAuth = false
   constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService,
-    private toaster: ToastrService, private commentService: CommentService) {}
+    private toaster: ToastrService, private commentService: CommentService,private deleteService:DeleteService,private location: Location) {}
 
   ngOnInit() {
     this.getChat()
@@ -38,7 +40,7 @@ export class EditComponent implements OnInit {
     this.fetchChatService.getChat(this.getIdValue()).subscribe((data)=> {
       console.log(data)
       this.singleChat = data
-      this.imageUrl = this.singleChat.mainImage
+      this.imageUrl = data['mainImage']
     }, (error)=> {
       console.log(error)
     })
@@ -58,7 +60,15 @@ export class EditComponent implements OnInit {
   }
 
   delete() {
-    this.toaster.warning('Only administrator can use this function', 'Authority warning')
+
+
+    // this.toaster.warning('Only administrator can use this function', 'Authority warning')
+    this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
+      this.toaster.success(data['success'], 'Delete successfully')
+      this.goBack()
+    }, (error) => {
+      this.toaster.error(error.message, 'Error')
+    })
   }
 
   buildCommentUrl() {
@@ -66,19 +76,22 @@ export class EditComponent implements OnInit {
     // console.log(this.commentUrl)
   }
   goToChangePic() {
-    this.chnagePicUrl = this.commentService.changePicUrl + '/' + this.getIdValue()
+    this.chnagePicUrl = this.commentService.changePicUrl + '/' + this.singleChat.path
     if (this.changePicToggle == false){
       if (this.authService.verifyToken()){
         return this.changePicToggle = true
       }
-      this.toaster.info('Please log in to comment', 'Authentication falled')
+      this.toaster.info('Please log in to edit', 'Authentication falled')
     }
     if (this.changePicToggle == true) {
       this.changePicToggle = false
     }
+
   }
 
-
+  goBack() {
+    this.location.back();
+  }
   isAuthOwner(){
     if(this.authService.verifyToken()){
       this.currentName = this.authService.decodeToken()['name']
@@ -90,5 +103,7 @@ export class EditComponent implements OnInit {
     }
     return this.isAuth
   }
-
+  isAdmin(){
+    this.authService.verifyAdmin()
+  }
 }
