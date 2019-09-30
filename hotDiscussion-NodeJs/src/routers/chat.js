@@ -197,9 +197,11 @@ router.get('/chats/topics', async (req, res) => {
                         count: {sum: 1}
                     }
                 },
-            
                 {
-                    $sort : {totalLike : -1}
+                    $match : {totalLike: {$gt : 0}}
+                },
+                {
+                    $sort : {totalLike : -1 }
                 }
             ]
         )
