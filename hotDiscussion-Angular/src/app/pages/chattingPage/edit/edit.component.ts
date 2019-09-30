@@ -4,7 +4,7 @@ import { GetChatByIdService } from '../../../http/get-chat-by-id.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../../http/image/comment.service';
-
+// import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -16,10 +16,13 @@ export class EditComponent implements OnInit {
   singleChat: any = {}
   imageUrl: string = ''
   myComponentToggle: boolean = false
+  changePicToggle:boolean = false
   likesToggle: boolean = false
   commentUrl: string = ''
-
-  constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService, 
+  chnagePicUrl: string = ''
+  currentName = '';
+  isAuth = false
+  constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService,
     private toaster: ToastrService, private commentService: CommentService) {}
 
   ngOnInit() {
@@ -61,6 +64,31 @@ export class EditComponent implements OnInit {
   buildCommentUrl() {
     this.commentUrl = this.commentService.baseUrl + '/' + this.getIdValue() + '/' + this.singleChat.path
     // console.log(this.commentUrl)
+  }
+  goToChangePic() {
+    this.chnagePicUrl = this.commentService.changePicUrl + '/' + this.getIdValue()
+    if (this.changePicToggle == false){
+      if (this.authService.verifyToken()){
+        return this.changePicToggle = true
+      }
+      this.toaster.info('Please log in to comment', 'Authentication falled')
+    }
+    if (this.changePicToggle == true) {
+      this.changePicToggle = false
+    }
+  }
+
+
+  isAuthOwner(){
+    if(this.authService.verifyToken()){
+      this.currentName = this.authService.decodeToken()['name']
+        if (this.singleChat.ownerName == this.currentName) {
+          this.isAuth = true
+        }
+        // console.log(this.currentName)
+        // console.log("hahhahahahaha"+this.singleChat.ownerName)
+    }
+    return this.isAuth
   }
 
 }

@@ -26,16 +26,16 @@ export class ChattingCardComponent implements OnInit {
               private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router,
               private uploadMainImage: UploadMainChattingService) {}
 
-  isAuthOwner(){
-      if(this.authService.verifyToken()){
-        this.currentName = this.authService.decodeToken()['name']
-        for(let i =0; i < this.mainChattingList.length; i++) {
-          if (this.mainChattingList[i].ownerName == this.currentName) {
-            this.mainChattingList[i].isAuth = true
-          }
-        }
-      }
-    }
+  // isAuthOwner(){
+  //     if(this.authService.verifyToken()){
+  //       this.currentName = this.authService.decodeToken()['name']
+  //       for(let i =0; i < this.mainChattingList.length; i++) {
+  //         if (this.mainChattingList[i].ownerName == this.currentName) {
+  //           this.mainChattingList[i].isAuth = true
+  //         }
+  //       }
+  //     }
+  //   }
 
   goToEditPage(id) {
     this.router.navigate(['/mainChatting/edit', id])
@@ -59,7 +59,7 @@ export class ChattingCardComponent implements OnInit {
           this.mainChattingList = data
           this.addAuth()
           console.log(this.mainChattingList)
-          this.isAuthOwner()
+          // this.isAuthOwner()
         },
         (error) => {
           console.log(error)
