@@ -22,6 +22,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    role: {
+        type: String,
+        default: 'individual'
+    },
     tokens: [{
         token: {
             type: String,
@@ -39,8 +43,7 @@ const userSchema = new mongoose.Schema({
 // User methods that generate a unique JWT token
 userSchema.methods.createToken = async function () {
     const user = this
-    const token = jwt.sign({_id: user._id.toString(), name: user.name}, 'milkTeaWithoutIce')
-
+    const token = jwt.sign({_id: user._id.toString(), name: user.name, role: user.role}, 'milkTeaWithoutIce')
     user.tokens = user.tokens.concat({ token })
     await user.save()
     return token
@@ -84,7 +87,7 @@ userSchema.methods.toJSON = function () {
     const userObject = user.toObject()
 
     delete userObject.password
-    delete userObject.tokens
+    //delete userObject.tokens
     delete userObject.avatar
 
     return userObject

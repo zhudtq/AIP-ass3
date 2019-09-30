@@ -30,7 +30,13 @@ export class AuthenticationService {
   }
 
   verifyAdmin() {
-    let user = this.decodeToken()
+    if (this.getToken() == ''){
+      return false
+    }
+    if (this.decodeToken()['role'] == 'admin') {
+      return true
+    }
+    return false
   }
 
 }
