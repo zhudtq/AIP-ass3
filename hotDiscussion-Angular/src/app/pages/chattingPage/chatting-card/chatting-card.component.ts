@@ -80,6 +80,7 @@ export class ChattingCardComponent implements OnInit {
       })
   }
   ngOnInit() {
+    console.log(this.authService.verifyAdmin())
     this.mainImageUrl = this.uploadMainImage.baseUrl;
     this.getAllChats()
   }
