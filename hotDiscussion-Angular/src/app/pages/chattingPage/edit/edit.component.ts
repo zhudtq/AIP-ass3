@@ -7,6 +7,9 @@ import { CommentService } from '../../../http/image/comment.service';
 import { Emoji } from './emoji';
 import { SendEmojiService } from '../../../http/image/send-emoji.service'
 
+import {DeleteService} from "../../../http/delete.service";
+import { Location } from "@angular/common";
+// import { Router } from '@angular/router';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -18,6 +21,7 @@ export class EditComponent implements OnInit {
   singleChat: any = {}
   imageUrl: string = ''
   myComponentToggle: boolean = false
+  changePicToggle:boolean = false
   likesToggle: boolean = false
   commentUrl: string = ''
   emojiToggle: boolean = false
@@ -35,6 +39,11 @@ export class EditComponent implements OnInit {
 
   constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService, 
     private toaster: ToastrService, private commentService: CommentService, private emojiService: SendEmojiService) {}
+  chnagePicUrl: string = ''
+  currentName = '';
+  isAuth = false
+  constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService,
+    private toaster: ToastrService, private commentService: CommentService,private deleteService:DeleteService,private location: Location,private emojiService: SendEmojiService) {}
 
   ngOnInit() {
     console.log(this.emojiList)
@@ -50,7 +59,7 @@ export class EditComponent implements OnInit {
     this.fetchChatService.getChat(this.getIdValue()).subscribe((data)=> {
       console.log(data)
       this.singleChat = data
-      this.imageUrl = this.singleChat.mainImage
+      this.imageUrl = data['mainImage']
     }, (error)=> {
       console.log(error)
     })
@@ -124,12 +133,50 @@ export class EditComponent implements OnInit {
   }
 
   delete() {
-    this.toaster.warning('Only administrator can use this function', 'Authority warning')
+
+
+    // this.toaster.warning('Only administrator can use this function', 'Authority warning')
+    this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
+      this.toaster.success(data['success'], 'Delete successfully')
+      this.goBack()
+    }, (error) => {
+      this.toaster.error(error.message, 'Error')
+    })
   }
 
   buildCommentUrl() {
     this.commentUrl = this.commentService.baseUrl + '/' + this.getIdValue() + '/' + this.singleChat.path
     // console.log(this.commentUrl)
   }
+  goToChangePic() {
+    this.chnagePicUrl = this.commentService.changePicUrl + '/' + this.singleChat.path
+    if (this.changePicToggle == false){
+      if (this.authService.verifyToken()){
+        return this.changePicToggle = true
+      }
+      this.toaster.info('Please log in to edit', 'Authentication falled')
+    }
+    if (this.changePicToggle == true) {
+      this.changePicToggle = false
+    }
 
+  }
+
+  goBack() {
+    this.location.back();
+  }
+  isAuthOwner(){
+    if(this.authService.verifyToken()){
+      this.currentName = this.authService.decodeToken()['name']
+        if (this.singleChat.ownerName == this.currentName) {
+          this.isAuth = true
+        }
+        // console.log(this.currentName)
+        // console.log("hahhahahahaha"+this.singleChat.ownerName)
+    }
+    return this.isAuth
+  }
+  isAdmin(){
+    this.authService.verifyAdmin()
+  }
 }
