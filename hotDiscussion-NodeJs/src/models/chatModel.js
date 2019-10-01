@@ -31,6 +31,11 @@ const chatSchema = mongoose.Schema({
         content: {
             type: String,
             //require: true
+        },
+        // 0 represents emoji, 1 represents image
+        tag: {
+            type: Number,
+            default: 1
         }
     }],
 }, {

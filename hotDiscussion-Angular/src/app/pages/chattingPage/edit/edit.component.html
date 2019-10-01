@@ -1,6 +1,22 @@
 <div class="card">
   <div class="image-wrapper">
     <img [src]="imageUrl" class="card-img-top card-image" alt="Single Card">
+    <div class="row justify-content-center" style="height: 50px" *ngIf="emojiToggle">
+
+      <!-- emoji list -->
+      <div class="col-1"></div>
+      <div class="col-1 myImgWrapper" [ngStyle]="{'background-color': colorPicked}" (click)="confirmEmoji(i)" *ngFor="let emoji of emojiList; let i = index"
+        [title] = "emoji.title">
+        <div>
+            <img class="img-circle img-responsive myEmoji" style="max-height: 38px; max-width: 38px;" [src]="emoji?.url" class="img-circle special-img">
+        </div>
+      </div>
+      <div class="col-1 align-self-center align-self-start mySending">
+        <i class="far fa-paper-plane" (click)="sendEmoji()" title="Send"></i>
+      </div>
+
+    </div>
+
   </div>
   <div class="card-header">
     <small>Posted by <span class="my-blue">{{singleChat?.ownerName}}</span></small>
@@ -8,9 +24,18 @@
   </div>
   <div class="card-footer">
     <div class="row justify-content-center">
-      <div class="col-3 edit-part" (click)="comment()">
-        <i class="far fa-comment-dots"></i><small>{{singleChat?.comments?.length}} comments</small>
+      <div class="col-3 edit-part dropdown"      >
+
+        <div class="dropbtn">
+          <i class="far fa-comment-dots"></i><small>{{singleChat?.comments?.length}} comments</small>
+        </div>
+        <div class="dropdown-content">
+          <a (click)="showEmoji()">Emoji</a>
+          <a (click)="comment()">Upload from local</a>
+        </div>
+
       </div>
+
       <div class="col-3 edit-part">
         <div *ngIf="likesToggle">
             <i class="fas fa-thumbs-up"></i><small>{{singleChat?.likes?.length}} likes</small>

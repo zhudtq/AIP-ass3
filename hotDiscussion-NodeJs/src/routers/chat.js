@@ -172,6 +172,24 @@ router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res
     }
 })
 
+router.post('/emoji', auth, async (req, res) => {
+    try {
+        let myChat = await Chat.findOne({_id: req.body.id})
+        if (myChat) {
+            myChat.comments.push({
+                commenter: req.body.commenter,
+                content: req.body.url,
+                tag: 0
+            })
+            await myChat.save()
+            res.send(myChat)
+        }
+    }
+    catch (e) {
+        res.status(401).send()
+    }
+})
+
 router.get('/chats/topics', async (req, res) => {
     try {
         let nowTime = new Date((new Date).getTime());
