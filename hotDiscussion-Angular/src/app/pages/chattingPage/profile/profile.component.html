@@ -6,31 +6,31 @@
   </div>
 </form> -->
 <app-navigation ></app-navigation>
-<div class="container">
+<div class="profile-container" style="background-color:#9CBCD9">
   <div class="signup-outer-wrapper">   
     <div class="row justify-content-center"> 
-      <div class="row justify-content-center">
+      <div>
+          <div class="row justify-content-center">
+            <div class="card" style="width: 18rem;">
+                <img src={{imageUrl}} class="card-img-top" alt="...">
+                <div class="card-body">
+                  <p class="card-text">Profile Image</p>
+                </div>
+            </div>
+          </div>
+
           <div class="col-md-6 offset-md-1">
-              <h3>Choose File</h3>
               <form (ngSubmit)="onSubmit()">
-                  <div class="form-group">
+                  <div class="form-group" id="upload">
                       <input type="file" name="image" #fileInput accept="image/*" (change)="onFilePicked($event)" onclick="this.value=''">
                   </div>
                   <div class="form-group">
-                      <button class="btn btn-primary" type="submit">Submit</button>
+                      <button class="btn btn-primary" id ="submit-button" type="submit">Submit</button>
                   </div>
               </form>
           </div>
-      
-      <div class="row justify-content-center">
-        <div class="card" style="width: 18rem;">
-            <img src={{imageUrl}} class="card-img-top" alt="...">
-            <div class="card-body">
-              <p class="card-text">Profile Image</p>
-            </div>
-        </div>
-      </div>
       </div>
     </div>
   </div>
 </div>
+

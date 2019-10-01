@@ -2,13 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { UploadProfileService } from '../../../http/upload-profile.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
-import { Observable, interval, Subscription } from 'rxjs';
-import { AfterViewInit, ViewChild } from '@angular/core';
-import { NavigationComponent } from '../navigation/navigation.component';
-import { async } from '@angular/core/testing';
-
-
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -23,7 +17,8 @@ image;
 imageUrl;
 updateSubscription: Subscription;
 
-constructor(private http: HttpClient, private uploadProfileService: UploadProfileService, private authService: AuthenticationService) { 
+constructor(private http: HttpClient, private uploadProfileService: UploadProfileService, 
+  private authService: AuthenticationService) { 
 }
 
 onFilePicked(event){
