@@ -1,18 +1,19 @@
-<h1 class="page-header">Editing</h1>
+<h1 class="page-header">Change Your Post here</h1>
 <!--<div class="blog-post" *ngFor="let post of findSinglePost">-->
   <!-- Edit Blog Form -->
   <form (submit)="updateBlogSubmit()" >
-    <div class="card-body bg-secondary">
-      <div class="view overlay zoom">
-        <img [src]="singleCardList?.mainImage" class="img-fluid " alt="zoom">
-      </div>
-      <strong>Posted by:</strong><span class="col-4">{{singleCardList?.ownerName}}</span>
-      <strong>Date:</strong> <span class="col-3">{{singleCardList?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
-    </div>
+<!--    <div class="card-body bg-secondary">-->
+<!--      <div class="view overlay zoom">-->
+<!--        <img [src]="singleCardList?.mainImage" class="img-fluid " alt="zoom">-->
+<!--      </div>-->
+<!--      <strong>Posted by:</strong><span class="col-4">{{singleCardList?.ownerName}}</span>-->
+<!--      <strong>Date:</strong> <span class="col-3">{{singleCardList?.createdAt | date:'MMM, dd, yyyy -&#45;&#45;&#45;&#45;hh：mm：ss'}} </span>-->
+<!--    </div>-->
     <!-- Body Field -->
     <div class="form-group">
       <!--    <input [disabled]="processing" [(ngModel)]="blog.body" #body="ngModel" class="form-control" type="file" class="form-control-file border">-->
-      <input  type="file" class="form-control-file border">
+<!--      <input  type="file" class="form-control-file border">-->
+      <app-image-upload [mainImageUrl]="changedPictureUrl"></app-image-upload>
     </div>
     <table>
       <tr>
@@ -23,9 +24,6 @@
         <td>
           <!-- Save Changes Button -->
           <button type="submit" name="save" class="btn btn-info">Save Changes</button>
-        </td>
-        <td>
-          <button type="button" name="button" class="btn btn btn-danger">Delete</button>
         </td>
       </tr>
     </table>

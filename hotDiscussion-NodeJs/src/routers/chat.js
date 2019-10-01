@@ -115,12 +115,12 @@ router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>
 
 })
 
-router.delete('/delete/:id',auth, async (req, res) => {
+router.post('/delete/:id',auth, async (req, res) => {
     try {
         const id = req.params.id
         const deletePost = await Chat.findOne({_id: id})
         deletePost.remove()
-        res.status(201).send("delete successfully")
+        res.status(200).send({success: 'delete successfully'})
 
 
     } catch (e) {

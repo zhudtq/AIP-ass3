@@ -1,4 +1,4 @@
-<app-image-upload [mainImageUrl]="mainImageUrl" (childEvent)="getAllChats()"></app-image-upload>
+<app-image-upload [mainImageUrl]="mainImageUrl" (childEvent)="getAllChats()" name="Share your image here"></app-image-upload>
 
 <div class="blog-post" *ngFor="let chat of mainChattingList; let i = index">
   <div class="card">
@@ -16,9 +16,9 @@
     <div class="card-footer bg-dark text-white">
 
       <!-- Edit Button -->
-          <button (click)="goToEditPage(mainChattingList[i]._id)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>
-          <!-- Delete Button  for admin need to add function later-->
-          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn btn-danger" style='margin:10px;'>Delete</button></a>
+<!--          <button (click)="goToEditPage(mainChattingList[i]._id)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>-->
+<!--          &lt;!&ndash; Delete Button  for admin need to add function later&ndash;&gt;-->
+<!--          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn btn-danger" style='margin:10px;'>Delete</button></a>-->
           <!-- Likes Dropdown  -->
           <div class="dropdown">
             <!-- Like Button -->

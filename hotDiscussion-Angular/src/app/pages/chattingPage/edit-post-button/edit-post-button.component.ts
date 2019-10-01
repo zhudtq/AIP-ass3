@@ -15,6 +15,7 @@ export class EditPostButtonComponent implements OnInit {
   mainImageId:""
   mainImageSplit:string[]
   imageFolderName:string
+  changedPictureUrl:string = ''
   constructor(
     private location: Location, private transferService: TransferSingleCardService, private editService: EditPostButtonService
   ) {}
