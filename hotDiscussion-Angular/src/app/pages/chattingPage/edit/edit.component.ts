@@ -37,8 +37,6 @@ export class EditComponent implements OnInit {
   pickedEmoji: string = ''
   // #f9ca24 rgb(255, 255, 255)
 
-  constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService, 
-    private toaster: ToastrService, private commentService: CommentService, private emojiService: SendEmojiService) {}
   chnagePicUrl: string = ''
   currentName = '';
   isAuth = false
