@@ -4,6 +4,9 @@ import { GetChatByIdService } from '../../../http/get-chat-by-id.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../../http/image/comment.service';
+import { Emoji } from './emoji';
+import { SendEmojiService } from '../../../http/image/send-emoji.service'
+
 import {DeleteService} from "../../../http/delete.service";
 import { Location } from "@angular/common";
 // import { Router } from '@angular/router';
@@ -21,13 +24,29 @@ export class EditComponent implements OnInit {
   changePicToggle:boolean = false
   likesToggle: boolean = false
   commentUrl: string = ''
+  emojiToggle: boolean = false
+  emojiModel: any = {}
+
+  // emojiList = ['https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9nArEfJZVe0hIgJNWwHPKIPXNR1K6kTavmiO0n7WIhL-8Ae4H',
+  // 'https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_300/https://www.itpedia.nl/wp-content/uploads/2018/02/Thinking_Face_Emoji-300x300.png', 'https://blob.freent.de/image/6292650/460x307/460/307/b0/b080359f27915525f74574d94a56a510/SV/auf-dem-boden-rollen-png.png',
+  // 'https://cdn0.iconfinder.com/data/icons/smiley-10/100/Poop-512.png', 'https://s-media-cache-ak0.pinimg.com/736x/31/fb/09/31fb09b4799d8d5ba2821d93303517b5.jpg',
+  // 'https://cdn.shopify.com/s/files/1/1061/1924/products/12_large.png?v=1544200561', 'https://cdn.shopify.com/s/files/1/1061/1924/products/Sleeping_Emoji_large.png?v=1480481055',
+  // 'https://pngimage.net/wp-content/uploads/2018/06/twitch-emotes-png-6.png', 'http://cdn.shopify.com/s/files/1/1573/4081/products/pogchamp_fullrescrop_grande.png?v=1564717685']
+  emojiList = new Emoji().emojiList
+  colorPicked: string = 'rgb(255, 255, 255)'
+  pickedEmoji: string = ''
+  // #f9ca24 rgb(255, 255, 255)
+
+  constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService, 
+    private toaster: ToastrService, private commentService: CommentService, private emojiService: SendEmojiService) {}
   chnagePicUrl: string = ''
   currentName = '';
   isAuth = false
   constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService,
-    private toaster: ToastrService, private commentService: CommentService,private deleteService:DeleteService,private location: Location) {}
+    private toaster: ToastrService, private commentService: CommentService,private deleteService:DeleteService,private location: Location,private emojiService: SendEmojiService) {}
 
   ngOnInit() {
+    console.log(this.emojiList)
     this.getChat()
   }
 
@@ -57,6 +76,60 @@ export class EditComponent implements OnInit {
     if (this.myComponentToggle == true) {
       this.myComponentToggle = false
     }
+  }
+
+  showEmoji() {
+    if (this.emojiToggle == false){
+      if (this.authService.verifyToken()){
+        return this.emojiToggle = true
+      }
+      this.toaster.info('Please log in to comment', 'Authentication falled')
+    }
+    if (this.emojiToggle == true) {
+      this.emojiToggle = false
+    }
+  }
+
+  confirmEmoji(i: any) {
+    this.emojiList[i].toggle = true
+    for (let x = 0; x < this.emojiList.length; x++) {
+      if (x != i) {
+        this.emojiList[x].toggle = false
+      }
+    }
+    this.pickedEmoji = this.emojiList[i].url
+    // console.log(this.pickedEmoji)
+    // console.log(this.emojiList)
+  }
+
+  clearEmoji() {
+    this.pickedEmoji = ''
+    for (let i = 0; i < this.emojiList.length; i++) {
+      this.emojiList[i].toggle = false
+    }
+    this.emojiToggle = false
+  }
+
+  sendEmoji() {
+    if (this.pickedEmoji == '') {
+      return this.toaster.info('No emoji picked', 'Infor')
+    }
+    if (this.authService.getToken() == '') {
+      return this.toaster.info('Please log in to send emoji', 'Authentication failed')
+    }
+    let commenter = this.authService.decodeToken()['name']
+    this.emojiModel.commenter = commenter
+    this.emojiModel.url = this.pickedEmoji
+    this.emojiModel.id = this.singleChat._id
+
+    this.emojiService.postEmoji(this.emojiModel).subscribe((data)=> {
+      this.toaster.success('Emoji sent successfully', 'Success')
+      this.clearEmoji()
+      this.getChat()
+    }, (error) => {
+      this.toaster.error(error.message, 'Error')
+    })
+    
   }
 
   delete() {

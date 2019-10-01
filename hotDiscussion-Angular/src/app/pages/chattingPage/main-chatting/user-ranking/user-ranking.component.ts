@@ -21,7 +21,7 @@ export class UserRankingComponent implements OnInit {
       (data)=> {
         this.userRankingList = data
         // this.showTop(5)
-        console.log(data)
+        //console.log(data)
       }, (error)=> {
         console.log(error)
       }
