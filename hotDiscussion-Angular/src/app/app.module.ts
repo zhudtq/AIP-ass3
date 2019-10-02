@@ -21,7 +21,7 @@ import { ImageUploadComponent } from './pages/chattingPage/image-upload/image-up
 
 import { ProfileComponent } from './pages/chattingPage/profile/profile.component';
 import { EditComponent } from './pages/chattingPage/edit/edit.component';
-// import {EditPostButtonComponent} from "./pages/chattingPage/edit-post-button/edit-post-button.component";
+import {EditPostButtonComponent} from "./pages/chattingPage/edit-post-button/edit-post-button.component";
 
 export function tokenGetter() {
   return sessionStorage.getItem('StrawberryToken')
@@ -40,8 +40,8 @@ export function tokenGetter() {
     ChattingCardComponent,
     ImageUploadComponent,
     ProfileComponent,
-    EditComponent
-    // EditPostButtonComponent
+    EditComponent,
+    EditPostButtonComponent
   ],
   imports: [
     BrowserModule,
