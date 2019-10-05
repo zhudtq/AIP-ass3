@@ -58,7 +58,7 @@ export class ChattingCardComponent implements OnInit {
         (data) => {
           this.mainChattingList = data
           this.addAuth()
-          console.log(this.mainChattingList)
+          // console.log(this.mainChattingList)
           // this.isAuthOwner()
         },
         (error) => {
@@ -66,6 +66,7 @@ export class ChattingCardComponent implements OnInit {
         }
       )
     }
+
   getCardId(myIndex){
     this.cardId = this.mainChattingList[myIndex]._id
   }
@@ -83,6 +84,7 @@ export class ChattingCardComponent implements OnInit {
     console.log(this.authService.verifyAdmin())
     this.mainImageUrl = this.uploadMainImage.baseUrl;
     this.getAllChats()
+
   }
 
   // test(msg) {

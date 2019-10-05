@@ -127,7 +127,7 @@ export class EditComponent implements OnInit {
     }, (error) => {
       this.toaster.error(error.message, 'Error')
     })
-    
+
   }
 
   delete() {
@@ -160,6 +160,17 @@ export class EditComponent implements OnInit {
 
   }
 
+  changePic(){
+    this.fetchChatService.getChat(this.getIdValue()).subscribe((data)=> {
+      console.log(data)
+      this.singleChat = data
+      this.imageUrl = data['mainImage']
+      window.location.reload()
+    }, (error)=> {
+      console.log(error)
+    })
+  }
+
   goBack() {
     this.location.back();
   }
@@ -169,8 +180,6 @@ export class EditComponent implements OnInit {
         if (this.singleChat.ownerName == this.currentName) {
           this.isAuth = true
         }
-        // console.log(this.currentName)
-        // console.log("hahhahahahaha"+this.singleChat.ownerName)
     }
     return this.isAuth
   }

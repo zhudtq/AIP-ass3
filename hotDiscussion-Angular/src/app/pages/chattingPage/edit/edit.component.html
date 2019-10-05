@@ -58,7 +58,7 @@
   <app-image-upload [mainImageUrl] = "commentUrl" (childEvent) = "getChat()" name="Comment your image here"></app-image-upload>
 </div>
 <div class="changePostWrapper" *ngIf="changePicToggle">
-  <app-image-upload [mainImageUrl] = "chnagePicUrl" (childEvent) = "getChat()" name="Change Your Post Here"></app-image-upload>
+  <app-image-upload [mainImageUrl] = "chnagePicUrl" (childEvent) = "changePic()" name="Change Your Post Here"></app-image-upload>
 </div>
 <!-- comment -->
 <div class="card mb-3 comment-wrapper">
