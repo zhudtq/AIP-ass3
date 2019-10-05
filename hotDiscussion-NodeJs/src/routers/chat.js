@@ -27,45 +27,41 @@ router.post('/chats', auth, upload.single('image'), async (req, res) => {
     }
 })
 // reference at https://www.youtube.com/watch?v=98lmyK5Bu_I && https://stackoverflow.com/questions/1069666/sorting-javascript-object-by-property-value?page=1&tab=votes#tab-top
-// router.get('/chats', async (req, res) => {
-//
-//     try {
-//         const chatList = await Chat.find({})
-//         var likeNum = []
-//         for (var likesNum in chatList){
-//             likeNum.push([likesNum,chatList[likesNum]]);
-//         }
-//         // console.log( likeNum[0][1].likes.length)
-//
-//         likeNum.sort(function (a,b) {
-//             return  b[1].likes.length-a[1].likes.length
-//         })
-//         // console.log(likeNum[1][1])
-//         var objSorted = {}
-//         // function toObject(likeNum) {
-//             // var rv = {};
-//             for (var i = 0; i < likeNum.length; ++i)
-//                 if (likeNum[i] !== undefined) objSorted[i] = likeNum[i][1];
-//             // return objSorted;
-//         // }
-//         // objSorted= toObject(likeNum)
-//          console.log(objSorted)
-//         res.status(200).send(objSorted)
-//     }
-//     catch (e) {
-//         res.status(404).send()
-//     }
-// })
+router.get('/chatsLength', async (req, res) => {
+
+    try {
+        const chatListAll = await Chat.find({})
+        let len = {Len:chatListAll.length}
+        // console.log(len)
+        // console.log(typeof (len))
+        res.status(200).send(len)
+
+    }
+    catch (e) {
+        res.status(404).send()
+    }
+})
+
 
 router.get('/chats', async (req, res) => {
     try {
         const pagination = req.query.pagination ? parseInt(req.query.pagination):10
         const page = req.query.page ? parseInt(req.query.page) : 1
+        const sendPageNum = {Page:page}
+        // await res.status(200).send(sendPageNum)
+        // console.log(sendPageNum)
+        const popular = req.query.popular
         const chatList = await Chat.find({})
             .sort({ '_id': -1 })
-            .limit(pagination)
+             .limit(pagination)
             .skip((page-1)* pagination)
+        if(popular == "popular"){
+            chatList.sort(function (a,b) {
+                return  b.likes.length-a.likes.length
+            })
+        }
         res.status(200).send(chatList)
+
     }
     catch (e) {
         res.status(404).send()
