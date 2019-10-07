@@ -41,12 +41,13 @@ export class EditComponent implements OnInit {
   chnagePicUrl: string = ''
   currentName = '';
   isAuth = false
+  isAuthAdmin = false;
   constructor(private activatedRouter: ActivatedRoute, private fetchChatService: GetChatByIdService, private authService: AuthenticationService,
     private toaster: ToastrService, private commentService: CommentService,private deleteService:DeleteService,private location: Location,private emojiService: SendEmojiService) {}
 
   ngOnInit() {
-    console.log(this.emojiList)
     this.getChat()
+    this.isAdmin()
   }
 
   getIdValue(){
@@ -56,7 +57,6 @@ export class EditComponent implements OnInit {
 
   getChat() {
     this.fetchChatService.getChat(this.getIdValue()).subscribe((data)=> {
-      console.log(data)
       this.singleChat = data
       this.imageUrl = data['mainImage']
     }, (error)=> {
@@ -173,6 +173,17 @@ export class EditComponent implements OnInit {
 
   }
 
+  changePic(){
+    this.fetchChatService.getChat(this.getIdValue()).subscribe((data)=> {
+      console.log(data)
+      this.singleChat = data
+      this.imageUrl = data['mainImage']
+      window.location.reload()
+    }, (error)=> {
+      console.log(error)
+    })
+  }
+
   goBack() {
     this.location.back();
   }
@@ -182,12 +193,11 @@ export class EditComponent implements OnInit {
         if (this.singleChat.ownerName == this.currentName) {
           this.isAuth = true
         }
-        // console.log(this.currentName)
-        // console.log("hahhahahahaha"+this.singleChat.ownerName)
     }
     return this.isAuth
   }
   isAdmin(){
-    this.authService.verifyAdmin()
+    this.isAuthAdmin = this.authService.verifyAdmin()
+    return this.isAuthAdmin
   }
 }
