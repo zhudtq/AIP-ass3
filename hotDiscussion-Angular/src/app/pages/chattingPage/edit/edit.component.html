@@ -4,15 +4,19 @@
     <div class="row justify-content-center" style="height: 50px" *ngIf="emojiToggle">
 
       <!-- emoji list -->
-      <div class="col-1"></div>
       <div class="col-1 myImgWrapper" [ngStyle]="{'background-color': colorPicked}" (click)="confirmEmoji(i)" *ngFor="let emoji of emojiList; let i = index"
         [title] = "emoji.title">
         <div>
             <img class="img-circle img-responsive myEmoji" style="max-height: 38px; max-width: 38px;" [src]="emoji?.url" class="img-circle special-img">
         </div>
       </div>
-      <div class="col-1 align-self-center align-self-start mySending">
-        <i class="far fa-paper-plane" (click)="sendEmoji()" title="Send"></i>
+
+      <div class="col-1">
+        <img class="img-responsive" *ngIf="shownEmoji" [src]="shownEmoji" alt="0.0" style="max-height: 38px; max-width: 38px;">
+      </div>
+      <div class="col-1 align-self-center align-self-start">
+        <i class="far fa-trash-alt mySending" (click)="deleteEmoji()" title="delete"></i>
+        <i class="far fa-paper-plane mySending" (click)="sendEmoji()" title="Send"></i>
       </div>
 
     </div>

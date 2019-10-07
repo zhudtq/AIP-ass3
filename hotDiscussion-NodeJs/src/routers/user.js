@@ -9,13 +9,19 @@ const router = new express.Router()
 router.post('/users', async(req, res) => {
     const user = new User(req.body)
     try {
-        console.log(req.body)
+        let remoteIp = req.header('x-forwarded-for') || req.connection.remoteAddress
+        let ip = req.ip
+        let url = req.originalUrl
+        // console.log('remote', remoteIp)
+        // console.dir(req.ip)
+        // console.log('url', url)
+        console.log(req.socket.address().family)
         await user.save()
         const token = await user.createToken()
         res.status(201).send({user, token})
     } 
     catch (e) {
-        res.status(400).send(e)
+        res.status(400).send(e.message)
     }
 })
 
