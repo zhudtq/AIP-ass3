@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter} from '@angular/core';
 import { GetAllChattingsService } from '../../http/get-all-chattings.service';
 
 @Component({
@@ -10,6 +10,8 @@ export class PaginationComponent implements OnInit {
   chatsLength: any = []
   len = 0
   numOfPage
+  filtedData: any = []
+  @Output() paginationEvent = new EventEmitter()
   constructor(private getAllChatting: GetAllChattingsService) { }
 
   getAllChatsLength() {
@@ -18,13 +20,10 @@ export class PaginationComponent implements OnInit {
         this.chatsLength = data
         this.len = this.chatsLength.Len
         this.caculatePageNum(this.len)
-        // console.log(this.len)
-        // console.log("page number")
-        // console.log(this.caculatePageNum(this.len))
         this.getArrayFromNumber(this.numOfPage)
       },
       (error) => {
-        console.log(error)
+        window.alert(error)
       }
     )
   }
@@ -39,7 +38,15 @@ export class PaginationComponent implements OnInit {
 
   }
   goToPage(num){
-    this.getAllChatting.goToNewPage(num)
+    this.getAllChatting.goToNewPage(num).subscribe(
+      (data) => {
+        this.filtedData = data
+        this.paginationEvent.emit(this.filtedData)
+      },
+      (error) => {
+        console.log(error)
+      }
+    )
 
   }
   ngOnInit() {

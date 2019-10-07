@@ -23,19 +23,18 @@ export class GetAllChattingsService {
   goToNewPage(pageNum){
     let params: URLSearchParams = new URLSearchParams();
     params.set('page', pageNum);
+    // params.set('popular', popular);
+    // params.set('rankingByNew', rankingByNew);
 
     //Http request-
-    return this.http.get(this.baseUrl +'/chats?',{
+    return this.http.get(this.baseUrl +'/chats/',
+      {
       params: {
-        page: pageNum
-      },
-      observe: 'response'
+        page: pageNum,
+        // popular:popular,
+        // rankingByNew:rankingByNew
+      }
     })
-      .toPromise()
-      .then(response => {
-        console.log(response);
-      })
-      .catch(console.log);
 
   }
 

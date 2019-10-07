@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, HostListener } from '@angular/core';
+import { Component, OnInit, Input, HostListener, ViewChild, ElementRef} from '@angular/core';
 import { GetAllChattingsService } from '../../../http/get-all-chattings.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
 import { Router } from '@angular/router';
 import { UploadMainChattingService } from '../../../http/image/upload-main-chatting.service';
 import { LikeButtonService } from "../../../http/like-button-service";
+import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({
   selector: 'app-chatting-card',
@@ -21,6 +22,7 @@ export class ChattingCardComponent implements OnInit {
   imagePath: String = "file:/balloon.jpg"
   cardId=''
   mainImageUrl: string = ''
+  @ViewChild(PaginationComponent) pagChild: PaginationComponent;
 
   constructor(private getAllChatting: GetAllChattingsService,private authService: AuthenticationService,
               private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router,
@@ -58,13 +60,14 @@ export class ChattingCardComponent implements OnInit {
         (data) => {
           this.mainChattingList = data
           this.addAuth()
-          // console.log(this.mainChattingList)
-          // this.isAuthOwner()
         },
         (error) => {
           console.log(error)
         }
       )
+
+      this.pagChild.getAllChatsLength()
+
     }
 
   getCardId(myIndex){
@@ -80,15 +83,21 @@ export class ChattingCardComponent implements OnInit {
         // console.log('shi bai')
       })
   }
+  sortByLikes(){
+
+  }
+  sortByNew(){
+
+  }
   ngOnInit() {
-    console.log(this.authService.verifyAdmin())
     this.mainImageUrl = this.uploadMainImage.baseUrl;
     this.getAllChats()
 
   }
 
-  // test(msg) {
-  //   alert('from chatting card component' + msg)
-  // }
+  clickLink(e: any) {
+    this.mainChattingList = e
+  }
+
 
 }
