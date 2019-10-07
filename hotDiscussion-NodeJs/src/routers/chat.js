@@ -47,24 +47,58 @@ router.get('/chats', async (req, res) => {
     try {
         const pagination = req.query.pagination ? parseInt(req.query.pagination):10
         const page = req.query.page ? parseInt(req.query.page) : 1
-        const sendPageNum = {Page:page}
-        // await res.status(200).send(sendPageNum)
-        // console.log(sendPageNum)
-        const popular = req.query.popular
-        const chatList = await Chat.find({})
-            .sort({ '_id': -1 })
-             .limit(pagination)
-            .skip((page-1)* pagination)
-        if(popular == "popular"){
-            chatList.sort(function (a,b) {
-                return  b.likes.length-a.likes.length
-            })
-        }
-        res.status(200).send(chatList)
+        const popular = req.query.popular == 'popular'? 1:0
+        const rankingByNew = req.query.new == 'rankingByNew'? 1:0
 
+        if(popular){
+            let chatList = await Chat.aggregate([
+                {
+                    "$project": {
+                        "_id":1,
+                        "mainImage": 1,
+                        "ownerName": 1,
+                        "ownerId": 1,
+                        "path": 1,
+                        "likes":1,
+                        "likeSize": {$size:"$likes"},
+                        "comments": 1,
+                        "createdAt": 1,
+                        "updatedAt": 1,
+                        "__v": 1}
+                },
+                {
+                    "$sort": {"likeSize": -1}
+                },
+                {
+                    "$skip":(page-1)* pagination
+                },
+                {
+                    "$limit":pagination
+                }
+
+
+            ])
+            chatList.map(list=> delete list.likeSize)
+
+            res.status(200).send(chatList)
+        }
+        else if(rankingByNew) {
+            let chatList = await Chat.find({})
+                .sort({ '_id': -1 })
+                 .limit(pagination)
+                .skip((page-1)* pagination)
+            res.status(200).send(chatList)
+        }
+        else {
+            let chatList = await Chat.find({})
+                .sort({ '_id': -1 })
+                .limit(pagination)
+                .skip((page-1)* pagination)
+            res.status(200).send(chatList)
+        }
     }
     catch (e) {
-        res.status(404).send()
+        res.status(404).send(e)
     }
 })
 
