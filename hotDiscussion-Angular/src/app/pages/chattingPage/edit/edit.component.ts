@@ -147,8 +147,6 @@ export class EditComponent implements OnInit {
 
   delete() {
 
-
-    // this.toaster.warning('Only administrator can use this function', 'Authority warning')
     this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
       this.toaster.success(data['success'], 'Delete successfully')
       this.goBack()
