@@ -56,7 +56,7 @@ export class SignupComponent implements OnInit {
             this.router.navigate(['/login'])
           },
           (error) => {
-            alert(' please check ')
+            alert('Username or Email unuseable, please change to try again! ')
             this.signupForm.reset()
           }
         )

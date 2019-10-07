@@ -3,6 +3,8 @@ import { UploadProfileService } from '../../../http/upload-profile.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { Subscription } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
+import { NG_FORM_SELECTOR_WARNING } from '@angular/forms/src/directives';
 
 @Component({
   selector: 'app-profile',
@@ -16,29 +18,59 @@ userId = '';
 image;
 imageUrl;
 updateSubscription: Subscription;
+pitch: string = "";
+btnToggle: boolean = true;
 
 constructor(private http: HttpClient, private uploadProfileService: UploadProfileService, 
-  private authService: AuthenticationService) { 
+  private authService: AuthenticationService, private toastr: ToastrService) { 
 }
 
+
 onFilePicked(event){
- console.log("onfilepicked event")
  if (event.target.files[0]){
+  this.btnToggle = true
     this.fileData = <File>event.target.files[0];
+    this.pitch = ""
+
+      let size = Number(this.fileData.size)
+      let type = this.fileData.type
+      if (size > 2000000) {
+        this.toastr.warning('The image size should be less than 2MB', 'Image Oversize')
+        this.fileData = null
+        this.btnToggle = true
+        return
+      }
+      if (type != 'image/jpeg' && type != 'image/jpg' && type != 'image/png') {
+        this.fileData = null
+        this.btnToggle = true
+        this.toastr.warning('Only png, jpg or jpeg image formats are accepted', 'Type error')
+        return
+      }
+      this.btnToggle = false
  }
+ else {
+  this.pitch = "* No file selected, please select a file to upload"
+  this.fileData = null
+}
 }
 
 onSubmit() {
     const formData = new FormData();
-    formData.append('avatar', this.fileData);
+    if (!this.fileData){
+      return this.toastr.info('No file picked', 'Infor')
+    }
+    if(this.fileData){
+      formData.append('avatar', this.fileData);
+    }
+    
     this.uploadProfileService.uploadImage(formData)
       .subscribe((data) => {
-                alert('Upload!')
+        this.toastr.success('Your profile has been successfully uploaded', 'Success')
+                this.fileData = null
                 this.getUrl();  
               },
               (error) => {
                 alert('fail'+ error)
-                console.log(error);
               })       
       };
       
@@ -65,11 +97,11 @@ getUrl(){
   this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
     this.createImageFromBlob(data);
     this.image = data;
-    console.log(this.image);
+    // console.log(this.image);
     
   }, (error) => {
     this.imageUrl = 'bg1.png';
-    console.log('error')
+    // console.log('error')
   })      
 }
 

@@ -46,8 +46,8 @@ export class ImageUploadComponent implements OnInit {
       this.btnToggle = false
 
       console.log(this.pickedFile)
-      console.log("大小为" + size + 'b')
-      console.log("种类为" + type)
+      console.log("file size:" + size + 'b')
+      console.log("file type:" + type)
     }
     else {
       this.pitch = "* No file selected, please select a file to upload"
@@ -58,6 +58,9 @@ export class ImageUploadComponent implements OnInit {
   onUpload(){
     let myImage = new FormData();
 
+    if (!this.pickedFile){
+      return this.toastr.info('No file picked', 'Infor')
+    }
     if (this.pickedFile){
       myImage.append('image', this.pickedFile, '-' + this.pickedFile.name);
     }
@@ -65,6 +68,7 @@ export class ImageUploadComponent implements OnInit {
     this.uploadService.submitMainChat(this.mainImageUrl, myImage).subscribe((data) => {
       this.childEvent.emit('Image component')
       this.toastr.success('Your image has been successfully uploaded', 'Success')
+      this.pickedFile = null
     }, (error) => {
       this.toastr.error(error.message, 'Failure')
     })

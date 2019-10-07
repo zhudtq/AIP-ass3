@@ -140,6 +140,9 @@ router.get('/chats/likes', async (req, res) => {
                         }
                     },
                     {
+                        $match : {totalLike: {$gt : 0}}
+                    },
+                    {
                         $group:
                         {   
                             _id:  {name: "$name"},
