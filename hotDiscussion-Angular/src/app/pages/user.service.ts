@@ -4,14 +4,13 @@ import {  Response } from "@angular/http";
 import {Observable} from 'rxjs';
 import { User } from '../models/signup/user.model';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   baseUrl = 'http://localhost:3000/users';
 
-  constructor(private http: HttpClient) {   }
+  constructor(private http: HttpClient) {}
 
   registerUser(user : User){
     const body: User = {
