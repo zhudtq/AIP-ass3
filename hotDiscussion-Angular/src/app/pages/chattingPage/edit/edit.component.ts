@@ -26,6 +26,7 @@ export class EditComponent implements OnInit {
   commentUrl: string = ''
   emojiToggle: boolean = false
   emojiModel: any = {}
+  shownEmoji: string = ''
 
   // emojiList = ['https://s3.amazonaws.com/pix.iemoji.com/images/emoji/apple/ios-12/256/smiling-face.png','https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9nArEfJZVe0hIgJNWwHPKIPXNR1K6kTavmiO0n7WIhL-8Ae4H',
   // 'https://cdn.shortpixel.ai/client/q_glossy,ret_img,w_300/https://www.itpedia.nl/wp-content/uploads/2018/02/Thinking_Face_Emoji-300x300.png', 'https://blob.freent.de/image/6292650/460x307/460/307/b0/b080359f27915525f74574d94a56a510/SV/auf-dem-boden-rollen-png.png',
@@ -90,6 +91,7 @@ export class EditComponent implements OnInit {
 
   confirmEmoji(i: any) {
     this.emojiList[i].toggle = true
+    this.shownEmoji = this.emojiList[i].url
     for (let x = 0; x < this.emojiList.length; x++) {
       if (x != i) {
         this.emojiList[x].toggle = false
@@ -100,8 +102,17 @@ export class EditComponent implements OnInit {
     // console.log(this.emojiList)
   }
 
+  // moveIn(i: any){
+  //   this.shownEmoji = this.emojiList[i].url
+  // }
+
+  // moveOut(){
+  //   this.shownEmoji = ''
+  // }
+
   clearEmoji() {
     this.pickedEmoji = ''
+    this.shownEmoji = ''
     for (let i = 0; i < this.emojiList.length; i++) {
       this.emojiList[i].toggle = false
     }
@@ -127,13 +138,15 @@ export class EditComponent implements OnInit {
     }, (error) => {
       this.toaster.error(error.message, 'Error')
     })
-    
+  }
+
+  deleteEmoji() {
+    this.pickedEmoji = '';
+    this.shownEmoji = '';
   }
 
   delete() {
 
-
-    // this.toaster.warning('Only administrator can use this function', 'Authority warning')
     this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
       this.toaster.success(data['success'], 'Delete successfully')
       this.goBack()
