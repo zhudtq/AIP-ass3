@@ -6,8 +6,6 @@ import { MainChattingComponent } from './pages/chattingPage/main-chatting/main-c
 import { SignupComponent } from './pages/signupPage/signup/signup.component';
 import { ChattingCardComponent } from "./pages/chattingPage/chatting-card/chatting-card.component";
 import { ProfileComponent} from './pages/chattingPage/profile/profile.component';
-import {EditPostButtonComponent} from "./pages/chattingPage/edit-post-button/edit-post-button.component";
-import {PaginationComponent} from "./pages/pagination/pagination.component";
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -20,10 +18,6 @@ const routes: Routes = [
         path: 'edit/:id',
         component: EditComponent
       },
-      // {
-      //   path: 'changePicture/:id',
-      //   component: EditPostButtonComponent
-      // },
       {
         path: 'chattingCard',
         component: ChattingCardComponent

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { UserModel } from '../../models/login/userModel';
 import { map } from 'rxjs/operators';
 import { UserService } from '../../http/signup/user.service';
-import { HostUrlService } from '../host-url.service';
+import { HostUrlService } from '../host-url/host-url.service';
 
 @Injectable({
   providedIn: 'root'

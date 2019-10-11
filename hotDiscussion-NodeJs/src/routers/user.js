@@ -62,33 +62,24 @@ const uploadphoto = multer({
     }
 })
 
-router.post('/users/me/avatar', auth, uploadphoto.single('avatar'), async (req, res) => {
-    //const buffer = await req.file.buffer.png().toBuffer()
-    req.user.avatar = req.file.buffer
+router.post('/users/me/profile', auth, uploadphoto.single('profile'), async (req, res) => {
+    req.user.profile = req.file.buffer
     await req.user.save()
     res.send()
 }, (error, req, res, next) => {
     res.status(400).send({ error: error.message })
 })
 
-router.delete('/users/me/avatar', auth, async (req, res) => {
-    req.user.avatar = undefined
-    await req.user.save()
-    res.send()
-})
-
-router.get('/users/:id/avatar', async (req, res) => {
+router.get('/users/:id/profile', async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
 
-        if (!user || !user.avatar) {
+        if (!user || !user.profile) {
              throw new Error()
-        //     res.set('Content-Type', 'image/png')
-        //     res.send({'image':'bg1.png'})
         }
 
         res.set('Content-Type', 'image/png')
-        res.send(user.avatar)
+        res.send(user.profile)
 
     } catch (e) {
         res.status(404).send()

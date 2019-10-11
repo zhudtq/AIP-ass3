@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
-import { HostUrlService } from './host-url.service';
+import { HostUrlService } from '../host-url.service';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 export class UploadProfileService {
   
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) { }
-  baseUrl = this.hostUrlSerivce.hostURL + '/users/me/avatar';
+  baseUrl = this.hostUrlSerivce.hostURL + '/users/me/profile';
 
   // Reference to solution :https://stackoverflow.com/questions/45303683/angular-4-execute-function-from-another-component/45305052
   private myListner = new Subject<any>();
@@ -29,7 +29,7 @@ export class UploadProfileService {
 
   }
 
-  getAvatar(id: any): Observable<Blob> {
-   return this.http.get(this.hostUrlSerivce.hostURL + '/users/' + id + '/avatar', {responseType: "blob"})
+  getProfile(id: any): Observable<Blob> {
+   return this.http.get(this.hostUrlSerivce.hostURL + '/users/' + id + '/profile', {responseType: "blob"})
   }
 }

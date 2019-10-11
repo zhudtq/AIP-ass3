@@ -2,9 +2,9 @@ import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../../http/signup/user.service';
 import { Subscription } from "rxjs";
 import { AuthenticationService } from '../../../commonServices/authentication.service';
-import { LogoutService } from '../../../http/logout.service';
+import { LogoutService } from '../../../http/logout/logout.service';
 import { ToastrService } from 'ngx-toastr';
-import { UploadProfileService } from '../../../http/upload-profile.service';
+import { ProfileService } from '../../../http/profile/profile.service';
 import { HttpClient } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
@@ -23,13 +23,15 @@ export class NavigationComponent implements OnInit{
 
   constructor(private authService: AuthenticationService,
     private logoutService: LogoutService, private toastrService: ToastrService,
-    private uploadProfileService: UploadProfileService, private http: HttpClient,) { 
+    private ProfileService: ProfileService, private http: HttpClient,) { 
 
-      this.uploadProfileService.listen().subscribe((image:any) => {
+      // Subscribe the change of profile iamge via ProfileService
+      this.ProfileService.listen().subscribe((image:any) => {
         this.createImageFromBlob(image);
     })
     }
-
+  
+  // User logout with authentication
   onLogout(){
     this.logoutService.logoutAll().subscribe(()=> {
       this.logoutService.clearToken()
@@ -39,11 +41,24 @@ export class NavigationComponent implements OnInit{
       console.log('error' + error)
     })
   }
+
+  // Get user ID number via authService
   getUserId(){
     if(this.authService.verifyToken()){
       this.userId = this.authService.decodeToken()["_id"]
     }
   }
+
+  
+  getUrl(){
+    this.ProfileService.getProfile(this.userId).subscribe((data)=> {
+      this.createImageFromBlob(data);
+    }, (error) => {
+      this.imageUrl = 'bg1.png';
+      console.log('error')
+    })      
+  }
+  
   createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
@@ -54,20 +69,10 @@ export class NavigationComponent implements OnInit{
     }
   }
 
-  getUrl(){
-    this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
-      this.createImageFromBlob(data);
-    }, (error) => {
-      this.imageUrl = 'bg1.png';
-      console.log('error')
-    })      
-  }
-  
-
   ngOnInit() {
     this.getUserId();
     this.getUrl();
-    console.log(this.authService.getToken())
+    
     if(this.authService.verifyToken()){
       this.userName = this.authService.decodeToken()['name'];
       return this.userIsAuthenticated = true;

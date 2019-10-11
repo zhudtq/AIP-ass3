@@ -5,7 +5,7 @@ import {Observable} from 'rxjs';
 import { User } from '../../models/signup/user.model';
 import { Subject } from "rxjs";
 import { Router } from "@angular/router";
-import { HostUrlService } from '../host-url.service';
+import { HostUrlService } from '../host-url/host-url.service';
 
 
 @Injectable({

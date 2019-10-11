@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PicRankingService} from '../../../../http/pic-ranking.service';
+import { PicRankingService} from '../../../../http/ranking/pic-ranking.service';
 
 @Component({
   selector: 'app-pic-ranking',
