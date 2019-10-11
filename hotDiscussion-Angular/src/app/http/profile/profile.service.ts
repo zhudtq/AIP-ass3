@@ -13,7 +13,7 @@ export class ProfileService {
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) { }
   baseUrl = this.hostUrlSerivce.hostURL + '/users/me/profile';
 
-  // Reference to solution :https://stackoverflow.com/questions/45303683/angular-4-execute-function-from-another-component/45305052
+  // Reference to solution from https://stackoverflow.com/questions/45303683/angular-4-execute-function-from-another-component/45305052
   private myListner = new Subject<any>();
 
     listen(): Observable<any> {
