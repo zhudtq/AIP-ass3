@@ -2,9 +2,9 @@ import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../../http/signup/user.service';
 import { Subscription } from "rxjs";
 import { AuthenticationService } from '../../../commonServices/authentication.service';
-import { LogoutService } from '../../../http/logout.service';
+import { LogoutService } from '../../../http/logout/logout.service';
 import { ToastrService } from 'ngx-toastr';
-import { UploadProfileService } from '../../../http/upload-profile.service';
+import { ProfileService } from '../../../http/profile/profile.service';
 import { HttpClient } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 
@@ -23,9 +23,9 @@ export class NavigationComponent implements OnInit{
 
   constructor(private authService: AuthenticationService,
     private logoutService: LogoutService, private toastrService: ToastrService,
-    private uploadProfileService: UploadProfileService, private http: HttpClient,) { 
+    private ProfileService: ProfileService, private http: HttpClient,) { 
 
-      this.uploadProfileService.listen().subscribe((image:any) => {
+      this.ProfileService.listen().subscribe((image:any) => {
         this.createImageFromBlob(image);
     })
     }
@@ -55,7 +55,7 @@ export class NavigationComponent implements OnInit{
   }
 
   getUrl(){
-    this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
+    this.ProfileService.getAvatar(this.userId).subscribe((data)=> {
       this.createImageFromBlob(data);
     }, (error) => {
       this.imageUrl = 'bg1.png';

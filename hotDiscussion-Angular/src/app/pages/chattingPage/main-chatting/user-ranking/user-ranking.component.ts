@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserRankingService } from '../../../../http/user-ranking.service';
+import { UserRankingService } from '../../../../http/ranking/user-ranking.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({

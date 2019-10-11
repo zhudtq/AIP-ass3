@@ -1,5 +1,5 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { UploadProfileService } from '../../../http/upload-profile.service';
+import { ProfileService } from '../../../http/profile/profile.service';
 import { HttpClient } from '@angular/common/http';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { Subscription } from 'rxjs';
@@ -10,7 +10,7 @@ import { NG_FORM_SELECTOR_WARNING } from '@angular/forms/src/directives';
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
-  providers: [UploadProfileService, AuthenticationService]
+  providers: [ProfileService, AuthenticationService]
 })
 export class ProfileComponent implements OnInit {
 fileData: File = null;
@@ -21,7 +21,7 @@ updateSubscription: Subscription;
 pitch: string = "";
 btnToggle: boolean = true;
 
-constructor(private http: HttpClient, private uploadProfileService: UploadProfileService, 
+constructor(private http: HttpClient, private ProfileService: ProfileService, 
   private authService: AuthenticationService, private toastr: ToastrService) { 
 }
 
@@ -63,7 +63,7 @@ onSubmit() {
       formData.append('avatar', this.fileData);
     }
     
-    this.uploadProfileService.uploadImage(formData)
+    this.ProfileService.uploadImage(formData)
       .subscribe((data) => {
         this.toastr.success('Your profile has been successfully uploaded', 'Success')
                 this.fileData = null
@@ -86,7 +86,7 @@ createImageFromBlob(image: Blob) {
   reader.addEventListener("load", () => {
     this.imageUrl = reader.result;
     this.image = image;
-    this.uploadProfileService.showImage(this.image);
+    this.ProfileService.showImage(this.image);
   }, false);
   if (image) {
     reader.readAsDataURL(image);
@@ -94,7 +94,7 @@ createImageFromBlob(image: Blob) {
 }
 
 getUrl(){
-  this.uploadProfileService.getAvatar(this.userId).subscribe((data)=> {
+  this.ProfileService.getAvatar(this.userId).subscribe((data)=> {
     this.createImageFromBlob(data);
     this.image = data;
     // console.log(this.image);

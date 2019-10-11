@@ -1,1 +1,0 @@
-where user's profile image is stored

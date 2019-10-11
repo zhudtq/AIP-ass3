@@ -3,7 +3,7 @@ import { Location } from "@angular/common";
 import { EditPostButtonService } from '../../../http/edit-post-button-service';
 import {PostModel} from "../../../models/postModel";
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
-import { HostUrlService } from '../../../http/host-url.service';
+import { HostUrlService } from '../../../http/host-url/host-url.service';
 
 @Component({
   selector: 'app-edit-post-button',
