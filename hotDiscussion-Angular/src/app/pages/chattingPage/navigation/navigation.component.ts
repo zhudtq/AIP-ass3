@@ -25,11 +25,13 @@ export class NavigationComponent implements OnInit{
     private logoutService: LogoutService, private toastrService: ToastrService,
     private ProfileService: ProfileService, private http: HttpClient,) { 
 
+      // Subscribe the change of profile iamge via ProfileService
       this.ProfileService.listen().subscribe((image:any) => {
         this.createImageFromBlob(image);
     })
     }
-
+  
+  // User logout with authentication
   onLogout(){
     this.logoutService.logoutAll().subscribe(()=> {
       this.logoutService.clearToken()
@@ -39,11 +41,24 @@ export class NavigationComponent implements OnInit{
       console.log('error' + error)
     })
   }
+
+  // Get user ID number via authService
   getUserId(){
     if(this.authService.verifyToken()){
       this.userId = this.authService.decodeToken()["_id"]
     }
   }
+
+  
+  getUrl(){
+    this.ProfileService.getProfile(this.userId).subscribe((data)=> {
+      this.createImageFromBlob(data);
+    }, (error) => {
+      this.imageUrl = 'bg1.png';
+      console.log('error')
+    })      
+  }
+  
   createImageFromBlob(image: Blob) {
     let reader = new FileReader();
     reader.addEventListener("load", () => {
@@ -54,20 +69,10 @@ export class NavigationComponent implements OnInit{
     }
   }
 
-  getUrl(){
-    this.ProfileService.getAvatar(this.userId).subscribe((data)=> {
-      this.createImageFromBlob(data);
-    }, (error) => {
-      this.imageUrl = 'bg1.png';
-      console.log('error')
-    })      
-  }
-  
-
   ngOnInit() {
     this.getUserId();
     this.getUrl();
-    console.log(this.authService.getToken())
+    
     if(this.authService.verifyToken()){
       this.userName = this.authService.decodeToken()['name'];
       return this.userIsAuthenticated = true;

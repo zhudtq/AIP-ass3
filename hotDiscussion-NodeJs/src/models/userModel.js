@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
             required: true
         }
     }],
-    avatar: {
+    profile: {
         type: Buffer
     }
 
@@ -88,7 +88,7 @@ userSchema.methods.toJSON = function () {
 
     delete userObject.password
     //delete userObject.tokens
-    delete userObject.avatar
+    delete userObject.profile
 
     return userObject
 }

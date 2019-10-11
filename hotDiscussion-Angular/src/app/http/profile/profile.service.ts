@@ -11,7 +11,7 @@ import { Subject } from 'rxjs';
 export class ProfileService {
   
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) { }
-  baseUrl = this.hostUrlSerivce.hostURL + '/users/me/avatar';
+  baseUrl = this.hostUrlSerivce.hostURL + '/users/me/profile';
 
   // Reference to solution :https://stackoverflow.com/questions/45303683/angular-4-execute-function-from-another-component/45305052
   private myListner = new Subject<any>();
@@ -29,7 +29,7 @@ export class ProfileService {
 
   }
 
-  getAvatar(id: any): Observable<Blob> {
-   return this.http.get(this.hostUrlSerivce.hostURL + '/users/' + id + '/avatar', {responseType: "blob"})
+  getProfile(id: any): Observable<Blob> {
+   return this.http.get(this.hostUrlSerivce.hostURL + '/users/' + id + '/profile', {responseType: "blob"})
   }
 }

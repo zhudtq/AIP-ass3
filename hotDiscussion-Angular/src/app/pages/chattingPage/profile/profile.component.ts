@@ -60,7 +60,7 @@ onSubmit() {
       return this.toastr.info('No file picked', 'Infor')
     }
     if(this.fileData){
-      formData.append('avatar', this.fileData);
+      formData.append('profile', this.fileData);
     }
     
     this.ProfileService.uploadImage(formData)
@@ -94,7 +94,7 @@ createImageFromBlob(image: Blob) {
 }
 
 getUrl(){
-  this.ProfileService.getAvatar(this.userId).subscribe((data)=> {
+  this.ProfileService.getProfile(this.userId).subscribe((data)=> {
     this.createImageFromBlob(data);
     this.image = data;
     // console.log(this.image);
