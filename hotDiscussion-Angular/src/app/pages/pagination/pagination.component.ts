@@ -23,7 +23,7 @@ export class PaginationComponent implements OnInit {
         this.getArrayFromNumber(this.numOfPage)
       },
       (error) => {
-        window.alert(error)
+        window.alert("Data fetch fails")
       }
     )
   }
@@ -37,6 +37,7 @@ export class PaginationComponent implements OnInit {
     return new Array(numOfPage);
 
   }
+  //send the page number to backend API
   goToPage(num){
     this.getAllChatting.goToNewPage(num).subscribe(
       (data) => {

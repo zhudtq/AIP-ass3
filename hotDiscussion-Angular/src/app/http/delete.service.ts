@@ -6,10 +6,10 @@ import {HostUrlService} from "./host-url/host-url.service";
   providedIn: 'root'
 })
 export class DeleteService {
-
+// built express request with the deleted post's id
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) { }
   baseUrl = this.hostUrlSerivce.hostURL + '/delete/';
-  postImageId(id) {
+  postDeletedImageId(id) {
     return this.http.post(this.baseUrl + id, {});
   }
 }

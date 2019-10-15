@@ -6,10 +6,9 @@ import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../../http/image/comment.service';
 import { Emoji } from './emoji';
 import { SendEmojiService } from '../../../http/image/send-emoji.service'
-
 import {DeleteService} from "../../../http/delete.service";
 import { Location } from "@angular/common";
-// import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
@@ -134,7 +133,8 @@ export class EditComponent implements OnInit {
 
   // delete id-specified chatting image
   delete() {
-    this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
+
+    this.deleteService.postDeletedImageId(this.singleChat._id).subscribe((data) => {
       this.toaster.success(data['success'], 'Delete successfully')
       this.goBack()
     }, (error) => {

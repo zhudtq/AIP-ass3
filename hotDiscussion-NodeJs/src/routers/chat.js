@@ -41,15 +41,15 @@ router.get('/chatsLength', async (req, res) => {
         res.status(404).send()
     }
 })
-
-
+//reference partly at https://www.youtube.com/watch?v=98lmyK5Bu_I&t=326s
+// backend for get sorted and pagination data
 router.get('/chats', async (req, res) => {
     try {
         const pagination = req.query.pagination ? parseInt(req.query.pagination):10
         const page = req.query.page ? parseInt(req.query.page) : 1
         const popular = req.query.popular == 'popular'? 1:0
         const rankingByNew = req.query.new == 'rankingByNew'? 1:0
-
+// if the user want to sort by popular
         if(popular){
             let chatList = await Chat.aggregate([
                 {
@@ -82,6 +82,7 @@ router.get('/chats', async (req, res) => {
 
             res.status(200).send(chatList)
         }
+        // if the user want to sort by newest posts
         else if(rankingByNew) {
             let chatList = await Chat.find({})
                 .sort({ '_id': -1 })
@@ -89,6 +90,7 @@ router.get('/chats', async (req, res) => {
                 .skip((page-1)* pagination)
             res.status(200).send(chatList)
         }
+        //default is to show data which are newest
         else {
             let chatList = await Chat.find({})
                 .sort({ '_id': -1 })
@@ -101,7 +103,7 @@ router.get('/chats', async (req, res) => {
         res.status(404).send(e)
     }
 })
-
+//get a single post by id
 router.get('/chat/:id', async (req, res) => {
     try {
         const chattingId = req.params.id
@@ -165,15 +167,13 @@ router.get('/chats/likes', async (req, res) => {
         res.status(401).send()
     }
 })
-
+// for change picture
 router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>{
     try{
         const id = req.params.id
-        console.log(id)
         res.send({id})
         const editPost = await Chat.save()
         res.status(201).send(editPost)
-        console.log(editPost)
 
     }
     catch (e) {
@@ -182,7 +182,7 @@ router.post('/edit/:id',auth, changePostPic.single('image'), async (req, res) =>
 
 
 })
-
+// delete picture API
 router.post('/delete/:id',auth, async (req, res) => {
     try {
         const id = req.params.id
@@ -195,7 +195,7 @@ router.post('/delete/:id',auth, async (req, res) => {
         res.status(404).send()
     }
 })
-
+//for like button. first, it will check if the user already liked the post before, if no, then add on the liker list, otherwise, it will delete the user from the liker list
 router.put('/like/:id',auth, async (req, res) => {
     try {
         const id = req.params.id
@@ -224,7 +224,6 @@ router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res
         let id = req.params.id
         let path = req.params.path
 
-        // console.log(path)
         let myChat = await Chat.findOne({_id: id})
         if (myChat) {
             myChat.comments.push({

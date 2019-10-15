@@ -1,8 +1,4 @@
 <app-image-upload [mainImageUrl]="mainImageUrl" (childEvent)="getAllChats(); " name="Share your image here"></app-image-upload>
-<!--<div class="container">-->
-<!--  <button type="button" class="btn btn-dark"  style='margin:10px;' (click)="sortByLikes()">Sort By Most Popular</button>-->
-<!--  <button type="button" class="btn btn-dark" (click)="sortByNew()">Sort by Newest</button>-->
-<!--</div>-->
 <div class="blog-post" *ngFor="let chat of mainChattingList; let i = index">
   <div class="card">
     <div class="card-header bg-dark text-white">
@@ -17,11 +13,7 @@
       <strong>Date:</strong> <span class="col-3">{{chat?.createdAt | date:'MMM, dd, yyyy -----hh：mm：ss'}} </span>
     </div>
     <div class="card-footer bg-dark text-white">
-
-      <!-- Edit Button -->
-<!--          <button (click)="goToEditPage(mainChattingList[i]._id)"  *ngIf="mainChattingList[i].isAuth" type="button" name="edit" class="btn btn btn-info">Edit</button>-->
-<!--          &lt;!&ndash; Delete Button  for admin need to add function later&ndash;&gt;-->
-<!--          <a href="#" *ngIf="mainChattingList[i].isAuth"><button type="button" name="button" class="btn btn btn-danger" style='margin:10px;'>Delete</button></a>-->
+<!-- reference at:     https://github.com/gugui3z24/MEAN-Stack-With-Angular-2-Tutorial/tree/like-dislike-->
           <!-- Likes Dropdown  -->
           <div class="dropdown">
             <!-- Like Button -->
