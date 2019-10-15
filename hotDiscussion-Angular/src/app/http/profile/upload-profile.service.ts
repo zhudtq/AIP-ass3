@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { RequestOptions } from '@angular/http';
-import { HostUrlService } from '../host-url.service';
+import { HostUrlService } from '../host-url/host-url.service';
 import { Observable } from 'rxjs';
 import { Subject } from 'rxjs';
 
@@ -9,7 +9,7 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class UploadProfileService {
-  
+
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) { }
   baseUrl = this.hostUrlSerivce.hostURL + '/users/me/profile';
 
