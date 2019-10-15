@@ -1,11 +1,11 @@
 This is Advanced Internet programming assignment3
-----------
+-
 
 It is a website which only can post and disscused by pictures. It uses Angular+NodeJS+Mongodb
-------------
+-
 
 Requirments:
-------------
+-
 
 1.Angular
 
@@ -24,7 +24,7 @@ npm install express --save
 https://nodejs.org/en/download/
 
 How to start?
------------------
+-
 1. in command line 
     cd hotDiscussion-Angular
     ng serve
@@ -42,9 +42,9 @@ How to start?
 
 
 Design Principle:
------------------
+-
 Key principles of code style and design:
------------------
+-
 
 1.We implement layered structure to the application with good documentation. Files are nested in proper folders to make it easier to manage and maintain as the project grows.
 
