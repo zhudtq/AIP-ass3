@@ -1,14 +1,6 @@
 const multer = require('multer')
 const fs = require('fs')
 
-// const stor = multer.diskStorage({
-//     destination: function (req, file, myFunc) {
-//         myFunc(null, './temp/')
-//     },
-//     filename: function (req, file, cb){
-//         cb (null, Date.now() + '.jpg')
-//     }
-// })
 
 // middleware that create directory and accept, store uploading images
 const up = multer.diskStorage({

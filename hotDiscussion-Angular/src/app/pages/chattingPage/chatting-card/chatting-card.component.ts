@@ -14,12 +14,8 @@ import { PaginationComponent } from '../../pagination/pagination.component';
   providers: [GetAllChattingsService,AuthenticationService]
 })
 export class ChattingCardComponent implements OnInit {
-  // userIsAuthenticated = false;
-  currentName = '';
-  selectedId = ''
-  // TransferSingleCardService
+
   mainChattingList: any = []
-  imagePath: String = "file:/balloon.jpg"
   cardId=''
   mainImageUrl: string = ''
   @ViewChild(PaginationComponent) pagChild: PaginationComponent;
@@ -28,17 +24,6 @@ export class ChattingCardComponent implements OnInit {
               private transferService: TransferSingleCardService,private likeButtonService:LikeButtonService, private router: Router,
               private uploadMainImage: UploadMainChattingService) {}
 
-  // isAuthOwner(){
-  //     if(this.authService.verifyToken()){
-  //       this.currentName = this.authService.decodeToken()['name']
-  //       for(let i =0; i < this.mainChattingList.length; i++) {
-  //         if (this.mainChattingList[i].ownerName == this.currentName) {
-  //           this.mainChattingList[i].isAuth = true
-  //         }
-  //       }
-  //     }
-  //   }
-
   goToEditPage(id) {
     this.router.navigate(['/mainChatting/edit', id])
   }
@@ -46,9 +31,7 @@ export class ChattingCardComponent implements OnInit {
   transferValue(myIndex: any){
     this.transferService.singleCard = this.mainChattingList[myIndex]
   }
-
-
-
+  // judge if the current login user is the user who post the picture
     addAuth(){
       for (let n = 0; n < this.mainChattingList.length; n ++){
         this.mainChattingList[n].isAuth = false;
@@ -62,12 +45,11 @@ export class ChattingCardComponent implements OnInit {
           this.addAuth()
         },
         (error) => {
-          console.log(error)
+          window.alert("Could not fetch all pictures")
         }
       )
-
+      //helps pagination to form how many pages should be presented
       this.pagChild.getAllChatsLength()
-
     }
 
   getCardId(myIndex){
@@ -77,10 +59,8 @@ export class ChattingCardComponent implements OnInit {
     this.getCardId(cardIndex)
       this.likeButtonService.likeImageId(this.cardId).subscribe((data) => {
         this.mainChattingList[cardIndex].likes = data['likes']
-        // console.log('cheng gong')
-        // console.log(data)
       }, (error) => {
-        // console.log('shi bai')
+        window.alert("Can not find people who have liked this post")
       })
   }
   sortByLikes(){
