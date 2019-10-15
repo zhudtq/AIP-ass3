@@ -147,7 +147,7 @@ export class EditComponent implements OnInit {
 
   delete() {
 
-    this.deleteService.postImageId(this.singleChat._id).subscribe((data) => {
+    this.deleteService.postDeletedImageId(this.singleChat._id).subscribe((data) => {
       this.toaster.success(data['success'], 'Delete successfully')
       this.goBack()
     }, (error) => {

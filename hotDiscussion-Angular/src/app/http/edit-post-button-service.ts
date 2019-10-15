@@ -6,7 +6,7 @@ import { HostUrlService } from './host-url/host-url.service';
   providedIn: 'root'
 })
 export class EditPostButtonService {
-  
+
   constructor(private http: HttpClient, private hostUrlSerivce: HostUrlService) {}
 
   baseUrl = this.hostUrlSerivce.hostURL + '/edit/';
@@ -15,9 +15,5 @@ export class EditPostButtonService {
   postImageId(id) {
     return this.http.post(this.baseUrl + id, {});
   }
-  // editBlog(chat) {
-  //
-  //   return this.http.put(this.baseUrl, chat);
-  // }
 
 }
