@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs')
 const Chat = require('./chatModel')
 
 // User model configurations
+// partly refer to https://github.com/andrewjmead/node-course-v3-code
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -82,6 +83,8 @@ userSchema.pre('save', async function (next) {
     next()
 })
 
+// delete unrelated private information
+// partly refer to https://github.com/andrewjmead/node-course-v3-code
 userSchema.methods.toJSON = function () {
     const user = this
     const userObject = user.toObject()

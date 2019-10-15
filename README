@@ -1,4 +1,3 @@
-
 This is Advanced Internet programming assignment3.
 
 It is a website which only can post and disscused by pictures.
@@ -21,13 +20,20 @@ npm install express --save
 
 https://nodejs.org/en/download/
 
+How to start?
+1. in command line 
+    cd hotDiscussion-Angular
+    ng serve
+    // to start angular client
 
+2. install mongodb server on your pc and run following command to open up database
+    start D:\EFolder\mangodb\mongodb\bin/mongod.exe --dbpath=D:\EFolder\mangodb\mongodb-data 
+    // use your mongodb path
 
-How to use?
-Download the whole app and then go to the directory of hot-discussion-Angular
-src folder -> app -> pages ->chattingPage
-run command:
-ng serve
+3. in command line 
+    cd hotDiscussion-Nodejs
+    npm run dev
+    // to start backend (before run npm run dev , make sure you successfully open up the database which is the 2nd option)
 
 
 
