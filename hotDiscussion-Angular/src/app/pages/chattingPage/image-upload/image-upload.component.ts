@@ -22,7 +22,6 @@ export class ImageUploadComponent implements OnInit {
   }
 
   onFilePicked(event){
-    console.log(1)
     this.btnToggle = true
     if (event.target.files[0]){
       this.pickedFile = <File>event.target.files[0]
@@ -44,10 +43,6 @@ export class ImageUploadComponent implements OnInit {
         return
       }
       this.btnToggle = false
-
-      console.log(this.pickedFile)
-      console.log("file size:" + size + 'b')
-      console.log("file type:" + type)
     }
     else {
       this.pitch = "* No file selected, please select a file to upload"

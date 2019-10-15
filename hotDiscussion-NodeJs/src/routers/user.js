@@ -6,6 +6,8 @@ const multer = require('multer')
 
 const router = new express.Router()
 
+// sign up 
+// partly refer to https://github.com/andrewjmead/node-course-v3-code
 router.post('/users', async(req, res) => {
     const user = new User(req.body)
     try {
@@ -25,6 +27,8 @@ router.post('/users', async(req, res) => {
     }
 })
 
+// log in 
+// partly refer to https://github.com/andrewjmead/node-course-v3-code
 router.post('/users/login', async (req, res) => {
     try {
         const user = await User.findUserByVerification(req.body.email, req.body.password)
@@ -38,6 +42,8 @@ router.post('/users/login', async (req, res) => {
 
 })
 
+// logout all connected user
+// // partly refer to https://github.com/andrewjmead/node-course-v3-code
 router.delete('/users/logoutAll', auth, async(req, res) => {
     try {
         req.user.tokens = []
