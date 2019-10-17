@@ -1,5 +1,5 @@
 import { Component, OnInit, Output, EventEmitter} from '@angular/core';
-import { GetAllChattingsService } from '../../http/get-all-chattings.service';
+import { GetAllChattingsService } from '../../http/image/get-all-chattings.service';
 
 @Component({
   selector: 'app-pagination',

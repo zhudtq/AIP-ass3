@@ -1,11 +1,8 @@
-
-
 const express = require('express')
 const Chat = require('../models/chatModel')
 const auth = require('../middleware/authentication')
 const upload = require('../middleware/chattingImage')
 const router = new express.Router()
-const User = require('../models/userModel')
 const changePostPic = require('../middleware/editPost')
 const comment = require('../middleware/comment')
 
@@ -26,6 +23,7 @@ router.post('/chats', auth, upload.single('image'), async (req, res) => {
         res.status(400).send(e)
     }
 })
+
 // reference at https://www.youtube.com/watch?v=98lmyK5Bu_I && https://stackoverflow.com/questions/1069666/sorting-javascript-object-by-property-value?page=1&tab=votes#tab-top
 router.get('/chatsLength', async (req, res) => {
 
@@ -41,6 +39,7 @@ router.get('/chatsLength', async (req, res) => {
         res.status(404).send()
     }
 })
+
 //reference partly at https://www.youtube.com/watch?v=98lmyK5Bu_I&t=326s
 // backend for get sorted and pagination data
 router.get('/chats', async (req, res) => {
@@ -49,7 +48,7 @@ router.get('/chats', async (req, res) => {
         const page = req.query.page ? parseInt(req.query.page) : 1
         const popular = req.query.popular == 'popular'? 1:0
         const rankingByNew = req.query.new == 'rankingByNew'? 1:0
-// if the user want to sort by popular
+        // if the user want to sort by popular
         if(popular){
             let chatList = await Chat.aggregate([
                 {
@@ -103,6 +102,7 @@ router.get('/chats', async (req, res) => {
         res.status(404).send(e)
     }
 })
+
 //get a single post by id
 router.get('/chat/:id', async (req, res) => {
     try {
@@ -117,6 +117,8 @@ router.get('/chat/:id', async (req, res) => {
     }
 })
 
+// get user name and number of likes of users with top 5 likes
+// only count likes of posts posted in past 7 days
 router.get('/chats/likes', async (req, res) => {
     try {
         let nowTime = new Date((new Date).getTime());
@@ -257,6 +259,8 @@ router.post('/emoji', auth, async (req, res) => {
     }
 })
 
+// get image, user name and likes of posts with top 3 likes
+// only count likes of posts posted in past 7 days
 router.get('/chats/topics', async (req, res) => {
     try {
         let nowTime = new Date((new Date).getTime());
