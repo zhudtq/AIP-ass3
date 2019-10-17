@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken')
 const User = require('../models/userModel')
 
+// Fetching user from decoded token, passing if user exists
 const auth = async (req, res, next) => {
     try {
         const token = req.header('Authorization').replace('Bearer ', '')

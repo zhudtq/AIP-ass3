@@ -221,6 +221,7 @@ router.put('/like/:id',auth, async (req, res) => {
     }
 })
 
+// store comment image under specific user based on its id
 router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res) => {
     try {
         let id = req.params.id
@@ -241,6 +242,8 @@ router.post('/comment/:id/:path', auth, comment.single('image'), async (req, res
     }
 })
 
+
+// receive uploaded emoji and store emoji locally
 router.post('/emoji', auth, async (req, res) => {
     try {
         let myChat = await Chat.findOne({_id: req.body.id})
