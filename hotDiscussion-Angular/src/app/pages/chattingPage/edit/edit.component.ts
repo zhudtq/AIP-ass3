@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GetChatByIdService } from '../../../http/get-chat-by-id.service';
+import { GetChatByIdService } from '../../../http/image/get-chat-by-id.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommentService } from '../../../http/image/comment.service';
 import { Emoji } from './emoji';
 import { SendEmojiService } from '../../../http/image/send-emoji.service'
-import {DeleteService} from "../../../http/delete.service";
+import {DeleteService} from "../../../http/image/delete.service";
 import { Location } from "@angular/common";
 
 @Component({

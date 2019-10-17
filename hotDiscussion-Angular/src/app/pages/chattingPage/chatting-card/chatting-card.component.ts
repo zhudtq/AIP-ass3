@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, HostListener, ViewChild, ElementRef} from '@angular/core';
-import { GetAllChattingsService } from '../../../http/get-all-chattings.service';
+import { GetAllChattingsService } from '../../../http/image/get-all-chattings.service';
 import { AuthenticationService } from '../../../commonServices/authentication.service';
 import { TransferSingleCardService } from "../../../commonServices/transfer-single-card.service";
 import { Router } from '@angular/router';
 import { UploadMainChattingService } from '../../../http/image/upload-main-chatting.service';
-import { LikeButtonService } from "../../../http/like-button-service";
+import { LikeButtonService } from "../../../http/image/like-button-service";
 import { PaginationComponent } from '../../pagination/pagination.component';
 
 @Component({

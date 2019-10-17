@@ -43,7 +43,7 @@ router.post('/users/login', async (req, res) => {
 })
 
 // logout all connected user
-// // partly refer to https://github.com/andrewjmead/node-course-v3-code
+// partly refer to https://github.com/andrewjmead/node-course-v3-code
 router.delete('/users/logoutAll', auth, async(req, res) => {
     try {
         req.user.tokens = []
@@ -55,6 +55,8 @@ router.delete('/users/logoutAll', auth, async(req, res) => {
     }
 })
 
+// Reference to https://github.com/andrewjmead/node-course-v3-code/blob/master/task-manager/src/routers/user.js
+// add file filter to profile image
 const uploadphoto = multer({
     limits: {
         fileSize: 1000000
@@ -68,6 +70,8 @@ const uploadphoto = multer({
     }
 })
 
+// Reference to https://github.com/andrewjmead/node-course-v3-code/blob/master/task-manager/src/routers/user.js
+// save profile image to database as binary buffer
 router.post('/users/me/profile', auth, uploadphoto.single('profile'), async (req, res) => {
     req.user.profile = req.file.buffer
     await req.user.save()
@@ -76,7 +80,9 @@ router.post('/users/me/profile', auth, uploadphoto.single('profile'), async (req
     res.status(400).send({ error: error.message })
 })
 
-router.get('/users/:id/profile', async (req, res) => {
+// Reference to https://github.com/andrewjmead/node-course-v3-code/blob/master/task-manager/src/routers/user.js
+// get profile image by id and send to front-end as png format
+router.get('/users/:id/profile', auth, async (req, res) => {
     try {
         const user = await User.findById(req.params.id)
 

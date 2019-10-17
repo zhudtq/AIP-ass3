@@ -1,5 +1,4 @@
 const multer = require('multer')
-const fs = require('fs')
 
 // middleware that create directory and accept, store uploading images that users want to change the original picture
 const change = multer.diskStorage({
