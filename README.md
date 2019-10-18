@@ -4,8 +4,16 @@ This is Advanced Internet programming assignment3
 It is a website which only can post and disscused by pictures. It uses Angular+NodeJS+Mongodb
 -
 
-Requirments:
--
+Developer:
+Quan Zhu  13073857
+Yuhui Liu   12842201
+Huiyun Niu  13320445
+
+Team:
+Strawberry
+
+Git repository:
+https://github.com/zhudtq/AIP-ass3
 
 1.Angular
 
@@ -27,6 +35,7 @@ How to start?
 -
 1. in command line 
     cd hotDiscussion-Angular
+    npm install
     ng serve
     // to start angular client
 
@@ -36,6 +45,7 @@ How to start?
 
 3. in command line 
     cd hotDiscussion-Nodejs
+    npm install
     npm run dev
     // to start backend (before run npm run dev , make sure you successfully open up the database which is the 2nd option)
 
